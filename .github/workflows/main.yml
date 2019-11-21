@@ -33,7 +33,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: |
         choco install visualstudio2017buildtools        
-        cd "C:\Program Files (x86)\Microsoft Visual Studio 14.0"
+        cd "C:\Program Files (x86)\Microsoft Visual Studio\2017\BuildTools"
         dir
         D:\a\nethermind\nethermind\bls\mklib.bat dll
         D:\a\nethermind\nethermind\bls\mk.bat -d test\bls_c384_test.cpp
