@@ -32,10 +32,11 @@ jobs:
     - name: Building BLS for Windows
       if: matrix.os == 'windows-latest'
       run: |
-        choco install -y vcbuildtools
-        #cd "C:\Program Files (x86)\Microsoft Visual Studio 14.0"
-        #dir
-        #vcvarsall.bat x86
+      #  choco install visualcpp-build-tools
+        choco install visualstudio2019professional --package-parameters "--allWorkloads --includeRecommended --includeOptional --passive --locale en-US"
+        cd "C:\Program Files (x86)\Microsoft Visual Studio 14.0"
+        dir
+        vcvarsall.bat x86
         D:\a\nethermind\nethermind\bls\mklib.bat dll
         D:\a\nethermind\nethermind\bls\mk.bat -d test\bls_c384_test.cpp
         D:\a\nethermind\nethermind\bls\bin\bls_c384_test.exe
