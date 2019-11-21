@@ -38,7 +38,7 @@ jobs:
         dir
         cd "C:\Program Files (x86)\"
         dir
-        cd "C:\Program Files (x86)\Microsoft Visual Studio\"
+        cd "C:\Program Files (x86)\Microsoft Visual Studio\2019"
         dir
     #    D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\mklib.bat dll
     #    D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\mk.bat -d test\bls_c384_test.cpp
