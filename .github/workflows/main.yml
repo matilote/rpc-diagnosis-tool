@@ -33,9 +33,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: |
         choco install visualcpp-build-tools --params "'/IncludeOptional'"
-        cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\"
-        dir
-        call vcvarsall.bat x64
+        cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\" && call vcvarsall.bat x64
         cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl && call mklib.bat dll
       #  D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\mk.bat -d test\bls_c384_test.cpp
       #  D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\bin\bls_c384_test.exe
