@@ -39,6 +39,7 @@ jobs:
         D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl\mklib.bat dll
       #  D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\mk.bat -d test\bls_c384_test.cpp
       #  D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\bin\bls_c384_test.exe
+      shell: cmd
     #- name: Building BLS for Linux
     #  if: matrix.os == 'ubuntu-latest'
     #  run: |
