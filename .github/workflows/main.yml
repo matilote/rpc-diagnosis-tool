@@ -37,7 +37,7 @@ jobs:
         ./vs_community.exe --allWorkloads --includeOptional --quiet
         choco install visualcpp-build-tools --params "'/IncludeOptional'"
         dir
-        cd "C:\Program Files (x86)\Microsoft Visual Studio 14.0\"
+        cd "C:\Program Files (x86)\Microsoft Visual Studio 14.0\2019\"
         dir
         cd "C:\Program Files (x86)\Microsoft Visual Studio\"
         dir
