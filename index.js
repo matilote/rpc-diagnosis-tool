@@ -1,24 +1,10 @@
 const rpc = require('node-json-rpc')
 const fs = require("fs")
-const inquirer = require('inquirer')
-const fetch = require('node-fetch');
+//const inquirer = require('inquirer')
+const fetch = require('node-fetch')
+const _ = require('lodash')
 
-
-/*const optionsNethermind = {
-  port: 8545,
-  host: '127.0.0.1',
-  path: '/',
-  strict: true
-}
-
-const optionsParity = {
-  port: 8555,
-  host: '127.0.0.1',
-  path: '/',
-  strict: true
-}*/
-
-const mainOptions = [{
+/*const mainOptions = [{
   type: 'list',
   name: 'mainConfig',
   message: 'Choose client for testing',
@@ -26,10 +12,7 @@ const mainOptions = [{
   filter: function(value) {
       return value.toLowerCase();
   }
-}];
-
-//const nethermindClient = new rpc.Client(optionsNethermind);
-//const parityClient = new rpc.Client(optionsParity)
+}];*/
 const textFile = fs.readFileSync("rpc.1.txt").toString('utf-8').split("\n");
 
 //removes last line of the file if empty
@@ -50,66 +33,56 @@ textFile.forEach((line) => {
   rpcArray.push(line)
 })
 
+const nethermindClientUrl = "http://127.0.0.1:8547/";
+const parityClientUrl = "http://127.0.0.1:8555/";
 
+//removes requests with eth_blockNumber methods
+const array = rpcArray.filter((el) => JSON.parse(el).method != 'eth_blockNumber')
 
-const nethermindClientUrl = "http://127.0.0.1:8545";
-const parityClientUrl = "http://127.0.0.1:8555";
+array.forEach((request, index) => {
+  (async () => {
+    const data = await Promise.all([
+    fetch(nethermindClientUrl, { 
+    method: 'POST',
+    headers: {
+    'Accept': 'application/json, text/plain',
+    'Content-Type': 'application/json;charset=UTF-8'
+    }, 
+    body: request }).then((response) => {
+      if (response.status != '200') {
+        const url = response.url.match(/\bhttp?:\/\/\S+/gi);
+        url == nethermindClientUrl ? clientName = 'nethermind' : clientName = 'parity'
+        saveToFile('errors', 'internal', `Client name: ${clientName}, Response status code: ${response.status}, Error: ${response.statusText}, Request: ${index + 1}, ${request}`)
+      }
+      return response.json()}),
+    fetch(parityClientUrl, { 
+    method: 'POST',
+    headers: {
+    'Accept': 'application/json, text/plain',
+    'Content-Type': 'application/json;charset=UTF-8'
+    }, 
+    body: request }).then((response) => response.json())
+    ])
+    .then(response => {
+      if (!_.isEqual(response[0], response[1])) {
+        const nethermindResponse = JSON.stringify(response[0])
+        const parityResponse = JSON.stringify(response[1])
+        saveToFile('responses', 'not-equal', `Request: ${request} | Response Nethermind: ${nethermindResponse} | Response Parity: ${parityResponse}`)
+      }})
+    .catch(error => {
+      const url = Object.values(error)[0].match(/\bhttp?:\/\/\S+/gi);
+      url == nethermindClientUrl ? clientName = 'nethermind' : clientName = 'parity'
+      saveToFile('errors', 'all', `Client name: ${clientName}, Response error: ${error}, request: ${index + 1} ${request}`)
+  })}
+)();
+})
 
-const postRequests = (clientUrl) => {
-  clientUrl === nethermindClientUrl ? name = 'nethermind' : name = 'parity'
-  rpcArray.forEach((request) => {
-    try {
-      fetch(clientUrl, { 
-        method: 'POST',
-        headers: {
-        'Accept': 'application/json, text/plain',
-        'Content-Type': 'application/json;charset=UTF-8'
-        }, 
-        body: request }).then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          saveToFile('errors', name, `Status code: ${response.status}, response error: ${response.statusText}, request: ${request}`)
-        }
-        })
-        .then((responseJson) => {
-          if(responseJson === undefined) {
-            saveToFile('invalid-requests', name, `Request: ${request}, Response: ${responseJson}`)
-          } else {
-            let text = JSON.stringify(responseJson)
-            saveToFile('responses', name, text)
-          }
-        })
-        .catch((error) => {
-        console.log(error)
-      });
-      /*
-        try {
-          let text = JSON.stringify(res)
-          saveToFile('responses', name, text)
-        } catch (err) {
-          throw err;
-        }
-      })
-      client.call(
-        JSON.parse(request),
-        function (err, res) {
-          try {
-            let text = JSON.stringify(res)
-            saveToFile('responses', name, text)
-          } catch (err) {
-            throw err;
-          }
-        })*/
-    } catch (err) {
-      saveToFile('errors', name, err + ': ' + request)
-    }
-  })
-}
-
+/*
 inquirer.prompt(mainOptions).then(o => {
   if (o.mainConfig === 'nethermind') {
     postRequests(nethermindClientUrl)
   } else {
     postRequests(parityClientUrl)
-}})
+}})*/
+
+
