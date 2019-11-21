@@ -34,15 +34,13 @@ jobs:
       run: |
         Invoke-Webrequest -uri "https://download.visualstudio.microsoft.com/download/pr/9fcc1f0c-c63f-4424-bc46-7351a59fba06/1ed7863dc633c57c42a88c5cef907048/vs_community.exe" -OutFile vs_community.exe
         dir
-        ./vs_community.exe --allWorkloads --includeRecommended --passive
+        ./vs_community.exe --allWorkloads --includeOptional --quiet
         choco install visualcpp-build-tools --params "'/IncludeOptional'"
         dir
         where cl.exe
         cd "C:\Program Files (x86)\Microsoft Visual Studio 14.0\"
         dir
         cd "C:\Program Files (x86)\Microsoft Visual Studio\"
-        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls
-        dir
         D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\mklib.bat dll
         D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\mk.bat -d test\bls_c384_test.cpp
         D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\bin\bls_c384_test.exe
