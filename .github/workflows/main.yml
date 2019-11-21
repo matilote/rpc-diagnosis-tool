@@ -32,9 +32,9 @@ jobs:
     - name: Building BLS for Windows
       if: matrix.os == 'windows-latest'
       run: |
-        choco install visualstudio2019community        
+        choco install visualstudio2019community --package-parameters "--allWorkloads --includeRecommended --includeOptional --passive --locale en-US"      
         choco install vcredist2017
-        choco install visualcpp-build-tools
+        choco install visualcpp-build-tools --params "'/IncludeOptional'"
         dir
         where cl.exe
         cd "C:\Program Files (x86)\Microsoft Visual Studio 14.0\"
