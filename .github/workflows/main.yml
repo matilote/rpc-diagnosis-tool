@@ -37,9 +37,9 @@ jobs:
         ./vs_community.exe --allWorkloads --includeOptional --quiet
         choco install visualcpp-build-tools --params "'/IncludeOptional'"
         dir
-        cd "C:\Program Files (x86)\Microsoft Visual Studio 14.0\2019\"
+        cd "C:\Program Files (x86)\Microsoft Visual Studio 14.0\"
         dir
-        cd "C:\Program Files (x86)\Microsoft Visual Studio\"
+        cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\"
         dir
     #    D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\mklib.bat dll
     #    D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\mk.bat -d test\bls_c384_test.cpp
