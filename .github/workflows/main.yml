@@ -32,14 +32,13 @@ jobs:
     - name: Building BLS for Windows
       if: matrix.os == 'windows-latest'
       run: |
-        Invoke-Webrequest -uri "https://download.visualstudio.microsoft.com/download/pr/9fcc1f0c-c63f-4424-bc46-7351a59fba06/1ed7863dc633c57c42a88c5cef907048/vs_community.exe" -OutFile vs_community.exe
+        choco install visualstudio2019community --package-parameters "--allWorkloads --includeRecommended --includeOptional --quiet --locale en-US"
         dir
-        ./vs_community.exe --allWorkloads --includeOptional --quiet
         choco install visualcpp-build-tools --params "'/IncludeOptional'"
         dir
         cd "C:\Program Files (x86)\"
         dir
-        cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise"
+        cd "C:\Program Files (x86)\Microsoft Visual Studio\"
         dir
     #    D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\mklib.bat dll
     #    D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\mk.bat -d test\bls_c384_test.cpp
