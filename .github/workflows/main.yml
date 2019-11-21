@@ -37,9 +37,12 @@ jobs:
         cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\"
         dir
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl && call mklib.bat dll
-      #  choco install visualcpp-build-tools --params "'/IncludeOptional'"
-      #  D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\mk.bat -d test\bls_c384_test.cpp
+        call "cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl\mklib.bat dll"
+        call "cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl\mk -d test\bls12_test.cpp"
+        call "cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl\bin\bls12_test.exe
+
+
+        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\mk.bat -d test\bls_c384_test.cpp
       #  D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\bin\bls_c384_test.exe
       shell: cmd
     #- name: Building BLS for Linux
