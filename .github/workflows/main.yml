@@ -3,7 +3,7 @@ name: BLS test
 on:
   push:
     branches:
-    - github-actions
+    - master
 
 jobs:
   neth-tests:
