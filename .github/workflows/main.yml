@@ -38,11 +38,11 @@ jobs:
         dir
         cd "C:\Program Files (x86)\"
         dir
-        cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC"
+        "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvarsall.bat" x64
         dir
-    #    D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\mklib.bat dll
-    #    D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\mk.bat -d test\bls_c384_test.cpp
-    #    D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\bin\bls_c384_test.exe
+        D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\mklib.bat dll
+        D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\mk.bat -d test\bls_c384_test.cpp
+        D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\bin\bls_c384_test.exe
     #- name: Building BLS for Linux
     #  if: matrix.os == 'ubuntu-latest'
     #  run: |
