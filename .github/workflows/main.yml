@@ -37,7 +37,7 @@ jobs:
         choco install visualcpp-build-tools
         dir
         where cl.exe
-        cd "C:\Program Files (x86)\ Microsoft Visual Studio 14.0\"
+        cd "C:\Program Files (x86)\Microsoft Visual Studio 14.0\"
         dir
         cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls
         dir
