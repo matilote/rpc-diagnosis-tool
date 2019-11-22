@@ -21,5 +21,6 @@ jobs:
       run: |
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
         call "C:\Program Files\Git\bin\bash.exe"
+        awk 'NR==28 { sub("ROCKSDBVNUM=`cat rocksdbversion`", "ROCKSDBVNUM=6.4.6") }'
         sh /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
       shell: cmd
