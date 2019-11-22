@@ -32,10 +32,6 @@ jobs:
     - name: Building BLS for Windows
       if: matrix.os == 'windows-latest'
       run: |
-        cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\
-        dir
-        cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\"
-        dir
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
         cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl && call mklib.bat dll
         cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl && call mk -d test\bls12_test.cpp
@@ -45,15 +41,12 @@ jobs:
         cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls && call bin\bls_c384_test.exe
       #  D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\bin\bls_c384_test.exe
       shell: cmd
-    #- name: Building BLS for Linux
-    #  if: matrix.os == 'ubuntu-latest'
-    #  run: |
-    #    cd bls/
-    #   make test
-    #- name: Building BLS for OSX
-    #  if: matrix.os == 'macOS-latest'
-    #  run: |
-    #    cd bls/
-    #    make all
+    - run: mkdir -p path/to/artifact
+    - run: echo hello > path/to/artifact/world.txt
+    - uses: actions/upload-artifact@v1
+      with:
+        name: my-artifact
+        path: path/to/artifact
+
 
 
