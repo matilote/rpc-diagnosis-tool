@@ -28,8 +28,7 @@ jobs:
     - name: Building rocksDB for Linux
       if: matrix.os == 'ubuntu-latest'
       run: |
-        sudo apt install libsnappy-dev
-        sudo apt install liblz4-dev
+        sudo apt install libsnappy-dev libzstd-dev liblz4-dev libzlib-dev
         cd rocksdb-sharp-native/
         echo 6.4.6 > rocksdbversion 
         ./build-rocksdb.sh
