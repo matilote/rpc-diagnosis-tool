@@ -40,12 +40,10 @@ jobs:
         cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls && call mk -d test\bls_c384_test.cpp
         cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls && call bin\bls_c384_test.exe
       shell: cmd
-    - run: mkdir -p /artifacts
-    - run: mv d:/a/rpc-diagnosis-tool/rpc-diagnosis-tool/bls/bin/bls_c384_256.dll > /artifacts/bls_c384_256.dll
     - uses: actions/upload-artifact@v1
       with:
         name: windows artifact
-        path: /artifacts
+        path: D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\bin\bls_c384_256.dll
 
 
 
