@@ -35,7 +35,7 @@ jobs:
     - name: Building rocksDB for OSX
       if: matrix.os == 'macOS-latest'
       run: |
-        brew install libsnappy-dev
+        brew install snappy
         cd /Users/runner/runners/2.160.2/work/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/ && ls
         sed -i "28s/ROCKSDBVNUM=`cat rocksdbversion`/ROCKSDBVNUM=6.4.6/" /Users/runner/runners/2.160.2/work/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
         cat build-rocksdb.sh
