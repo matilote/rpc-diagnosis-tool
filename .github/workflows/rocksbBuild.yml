@@ -21,5 +21,5 @@ jobs:
       run: |
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
         call "C:\Program Files\Git\bin\bash.exe"
-        sh D:\a\rpc-diagnosis-tool\rocksdb-sharp\native-build\build-rocksdb.sh
+        sh d:/a/rpc-diagnosis-tool/rocksdb-sharp/native-build/build-rocksdb.sh
       shell: cmd
