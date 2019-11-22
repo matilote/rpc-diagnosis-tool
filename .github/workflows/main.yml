@@ -40,27 +40,31 @@ jobs:
         cd D:\a\nethermind\nethermind\bls && call mk -d test\bls_c384_test.cpp
         cd D:\a\nethermind\nethermind\bls && call bin\bls_c384_test.exe
       shell: cmd
-      uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v1
+      name: Uploading Windows artifact
+      if: matrix.os == 'windows-latest'
       with:
         name: windows_artifact
         path: D:/a/nethermind/nethermind/bls/bin/bls384_256.dll
     - name: Building BLS for Linux
       if: matrix.os == 'ubuntu-latest'
       run: |
-        pwd
         cd bls/
         make all
-      uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v1
+      name: Uploading Linux artifact
+      if: matrix.os == 'ubuntu-latest'
       with:
         name: linux_artifact
         path: /home/runner/work/nethermind/nethermind/bls/lib/libbls384_256.so
     - name: Building BLS for OSX
       if: matrix.os == 'macOS-latest'
       run: |
-        pwd
         cd bls/
         make all
-      uses: actions/upload-artifact@v1
+    - uses: actions/upload-artifact@v1
+      name: Uploading Darwin artifact
+      if: matrix.os == 'macOS-latest'
       with:
         name: darwin_artifact
         path: /Users/runner/runners/2.160.2/work/nethermind/nethermind/bls/lib/libbls384_256.dylib
