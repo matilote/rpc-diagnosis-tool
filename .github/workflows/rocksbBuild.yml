@@ -41,7 +41,7 @@ jobs:
         cd snappy
         mkdir build
         cd build && cmake ../ && make
-        echo 6.4.6 > rocksdbversion
         cd /Users/runner/runners/2.160.2/work/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/
-        cat build-rocksdb.sh
+        echo 6.4.6 > rocksdbversion
+        cat rocksdbversion
         sh build-rocksdb.sh
