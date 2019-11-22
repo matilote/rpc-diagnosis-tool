@@ -11,20 +11,20 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
     - name: Cloning required repositories
       run: |
         git clone git://github.com/NethermindEth/bls.git
         git clone git://github.com/herumi/mcl.git
-    #- name: Installing GMP for ubuntu
-    #  if: matrix.os == 'ubuntu-latest'
-    #  run: |
-    #    sudo apt install libgmp-dev
-    #- name: Installing GMP for osx
-    #  if: matrix.os == 'macOS-latest'
-    #  run: |
-    #    brew install gmp
+    - name: Installing GMP for ubuntu
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt install libgmp-dev
+    - name: Installing GMP for osx
+      if: matrix.os == 'macOS-latest'
+      run: |
+        brew install gmp
     - name: Cloning lib for Windows
       if: matrix.os == 'windows-latest'
       run: |
@@ -33,18 +33,35 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: |
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl && call mklib.bat dll
-        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl && call mk -d test\bls12_test.cpp
-        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl && call bin\bls12_test.exe
-        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls && call mklib.bat dll
-        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls && call mk -d test\bls_c384_test.cpp
-        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls && call bin\bls_c384_test.exe
-        dir
+        cd D:\a\nethermind\nethermind\mcl && call mklib.bat dll
+        cd D:\a\nethermind\nethermind\mcl && call mk -d test\bls12_test.cpp
+        cd D:\a\nethermind\nethermind\mcl && call bin\bls12_test.exe
+        cd D:\a\nethermind\nethermind\bls && call mklib.bat dll
+        cd D:\a\nethermind\nethermind\bls && call mk -d test\bls_c384_test.cpp
+        cd D:\a\nethermind\nethermind\bls && call bin\bls_c384_test.exe
       shell: cmd
-    - uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v1
       with:
-        name: windows artifact
-        path: /bls/bin/bls384_256.dll
-
-
+        name: windows_artifact
+        path: D:/a/nethermind/nethermind/bls/bin/bls384_256.dll
+    - name: Building BLS for Linux
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        pwd
+        cd bls/
+        make all
+      uses: actions/upload-artifact@v1
+      with:
+        name: linux_artifact
+        path: /home/runner/work/nethermind/nethermind/bls/lib/libbls384_256.so
+    - name: Building BLS for OSX
+      if: matrix.os == 'macOS-latest'
+      run: |
+        pwd
+        cd bls/
+        make all
+      uses: actions/upload-artifact@v1
+      with:
+        name: darwin_artifact
+        path: /Users/runner/runners/2.160.2/work/nethermind/nethermind/bls/lib/libbls384_256.dylib
 
