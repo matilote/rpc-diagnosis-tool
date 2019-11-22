@@ -15,12 +15,11 @@ jobs:
     steps:
     - name: Cloning rocksDB repository
       run: |
-        git clone git://github.com/NethermindEth/rocksdb-sharp.git
+        git clone git://github.com/warrenfalk/rocksdb-sharp-native.git
     - name: Building rocksDB for Windows
       if: matrix.os == 'windows-latest'
       run: |
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
         call "C:\Program Files\Git\bin\bash.exe"
-        cd /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp/native-build && ls
-        sh /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp/native-build/build-rocksdb.sh
+        sh /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
       shell: cmd
