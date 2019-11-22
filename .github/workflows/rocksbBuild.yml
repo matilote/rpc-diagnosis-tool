@@ -11,7 +11,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [windows-latest, macOS-latest, ubuntu-latest]
     steps:
     - name: Cloning rocksDB repository
       run: |
@@ -23,4 +23,19 @@ jobs:
         call "C:\Program Files\Git\bin\bash.exe"
         sed -i '28s/ROCKSDBVNUM=`cat rocksdbversion`/ROCKSDBVNUM=6.4.6/' /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
         sh /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
+        cd /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build/ && ls 
       shell: cmd
+    - name: Building rocksDB for Linux
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt install libsnappy-dev
+        cd rocksdb-sharp-native/
+        sed -i '28s/ROCKSDBVNUM=`cat rocksdbversion`/ROCKSDBVNUM=6.4.6/' build-rocksdb.sh
+        ./build-rocksdb.sh
+    - name: Building rocksDB for Windows
+      if: matrix.os == 'macOS-latest'
+      run: |
+        brew install snappy
+        cd rocksdb-sharp-native/
+        sed -i '28s/ROCKSDBVNUM=`cat rocksdbversion`/ROCKSDBVNUM=6.4.6/' build-rocksdb.sh
+        ./build-rocksdb.sh
