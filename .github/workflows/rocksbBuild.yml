@@ -36,6 +36,5 @@ jobs:
       if: matrix.os == 'macOS-latest'
       run: |
         brew install snappy
-        cd rocksdb-sharp-native/ && ls
-        sed -i '28s/ROCKSDBVNUM=`cat rocksdbversion`/ROCKSDBVNUM=6.4.6/' build-rocksdb.sh
+        sed -i '' '28s/ROCKSDBVNUM=`cat rocksdbversion`/ROCKSDBVNUM=6.4.6/' build-rocksdb.sh
         ./build-rocksdb.sh
