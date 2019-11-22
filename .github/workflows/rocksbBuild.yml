@@ -22,5 +22,5 @@ jobs:
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
         bash.exe
         cd D:\a\nethermind\nethermind\rocksdb-sharp\native-build
-        ./build-rocksdb.sh
+        build-rocksdb.sh
       shell: cmd
