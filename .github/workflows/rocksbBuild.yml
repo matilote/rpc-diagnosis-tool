@@ -19,8 +19,10 @@ jobs:
     - name: Building rocksDB for Windows
       if: matrix.os == 'windows-latest'
       run: |
-        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-        cd C:\ && dir 
-        call "C:\Program Files\Git\bin\bash.exe"
+      #  call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+        cd C:\
+        dir 
+        cd "C:\Program Files\"
+        dir
         cd D:\a\rpc-diagnosis-tool\rocksdb-sharp\native-build && call build-rocksdb.sh
       shell: cmd
