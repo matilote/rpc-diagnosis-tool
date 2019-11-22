@@ -35,7 +35,7 @@ jobs:
     - name: Building rocksDB for OSX
       if: matrix.os == 'macOS-latest'
       run: |
-        brew tap homebrew/versions; brew install gcc48 --use-llvm
+        brew install gcc48 --use-llvm
         brew install rocksdb
         brew install snappy
         cd /Users/runner/runners/2.160.2/work/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/
