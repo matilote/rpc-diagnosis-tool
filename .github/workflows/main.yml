@@ -6,8 +6,8 @@ on:
     - master
 
 jobs:
-  neth-tests:
-    name: bls
+  bls-building:
+    name: Building bls
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -51,6 +51,9 @@ jobs:
       run: |
         cd bls/
         make all
+    - name: Stripping Linux file
+      if: matrix.os == 'ubuntu-latest'
+      run: strip /home/runner/work/nethermind/nethermind/bls/lib/libbls384_256.so
     - uses: actions/upload-artifact@v1
       name: Uploading Linux artifact
       if: matrix.os == 'ubuntu-latest'
