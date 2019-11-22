@@ -38,7 +38,6 @@ jobs:
         brew install gcc
         brew install rocksdb
         brew install snappy
-        cd /Users/runner/runners/2.160.2/work/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/
-        sed -i '181d' Users/runner/runners/2.160.2/work/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh       
+        cd /Users/runner/runners/2.160.2/work/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/ &&  sed -e '181d' build-rocksdb.sh
         echo 6.4.6 > rocksdbversion
         sh build-rocksdb.sh
