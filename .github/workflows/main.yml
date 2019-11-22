@@ -37,12 +37,12 @@ jobs:
         cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\"
         dir
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-        call "D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl\mklib.bat dll"
-        call "D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl\mk -d test\bls12_test.cpp"
-        call "D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl\bin\bls12_test.exe"
-        call "D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\mklib.bat dll"
-        call "D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\mk -d test\bls_c384_test.cpp"
-        call "D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\bin\bls_c384_test.exe"
+        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl && call mklib.bat dll
+        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl && call mk -d test\bls12_test.cpp
+        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl && call bin\bls12_test.exe
+        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls && call mklib.bat dll
+        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls && call mk -d test\bls_c384_test.cpp
+        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls && call bin\bls_c384_test.exe
       #  D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\bin\bls_c384_test.exe
       shell: cmd
     #- name: Building BLS for Linux
