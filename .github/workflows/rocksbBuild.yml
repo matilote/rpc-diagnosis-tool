@@ -29,8 +29,9 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
       run: |
         sudo apt install libsnappy-dev
+        sudo apt install liblz4-dev
         cd rocksdb-sharp-native/
-        sed -i '28s/ROCKSDBVNUM=`cat rocksdbversion`/ROCKSDBVNUM=6.4.6/' build-rocksdb.sh
+        echo 6.4.6 > rocksdbversion 
         ./build-rocksdb.sh
     - name: Building rocksDB for OSX
       if: matrix.os == 'macOS-latest'
@@ -44,5 +45,4 @@ jobs:
         brew install snappy
         cd /Users/runner/runners/2.160.2/work/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/
         echo 6.4.6 > rocksdbversion
-        cat rocksdbversion
         sh build-rocksdb.sh
