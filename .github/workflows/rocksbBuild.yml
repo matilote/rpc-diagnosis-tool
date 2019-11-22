@@ -20,6 +20,9 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: |
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-        call "C:\Program Files\Git\bin\bash.exe"
-        cd D:\a\nethermind\nethermind\rocksdb-sharp\native-build && dir && call build-rocksdb.sh
+        cd "C:\Program Files\"
+        dir
+        cd "C:\Program Files\Git\"
+        dir
+        cd D:\a\rpc-diagnosis-tool\rocksdb-sharp\native-build && dir && call build-rocksdb.sh
       shell: cmd
