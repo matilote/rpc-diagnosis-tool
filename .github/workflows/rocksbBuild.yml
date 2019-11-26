@@ -47,5 +47,7 @@ jobs:
         touch lz4/lib/liblz4
         make -C lz4/lib install
         cd rocksdb-sharp-native/
+        sed -i '.bak' '140s/export CC=gcc-8/export CC=gcc-9/' build-rocksdb.sh
+        sed -i '.bak' '141s/export CXX=g++-8/export CXX=g++-9/' build-rocksdb.sh
         sed -i '.bak' '180d;181d;182d;183d;184d;185d;186d' build-rocksdb.sh
         sh build-rocksdb.sh
