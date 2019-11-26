@@ -26,6 +26,12 @@ jobs:
         cd /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/ && ls
         cd /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/rocksdb-v6.4.6/linux-x64/native/ && ls
       shell: cmd
+    #- uses: actions/upload-artifact@v1
+    #  name: Uploading Windows artifact
+    #  if: matrix.os == 'windows-latest'
+    #  with:
+    #    name: windows_artifact_rocksdb
+    #    path: D:/a/rpc-diagnosis-tool/rpc-diagnosis-tool/bls/bin/bls384_256.dll
     - name: Building rocksDB for Linux
       if: matrix.os == 'ubuntu-latest'
       run: |
@@ -40,7 +46,7 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
       with:
         name: linux_artifact_rocksdb
-        path: /home/runner/work/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb/librocksdb.so
+        path: rocksdb/librocksdb.so
     - name: Building rocksDB for OSX
       if: matrix.os == 'macOS-latest'
       run: |
@@ -59,9 +65,10 @@ jobs:
         git clone https://github.com/facebook/rocksdb.git
         cd rocksdb/
         make shared_lib
+        ls
     - uses: actions/upload-artifact@v1
       name: Uploading Darwin artifact
       if: matrix.os == 'macOS-latest'
       with:
         name: darwin_artifact_rocksdb
-        path: /Users/runner/runners/2.160.2/work/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb/librocksdb.dylib
+        path: rocksdb/librocksdb.dylib
