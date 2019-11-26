@@ -23,15 +23,13 @@ jobs:
         call "C:\Program Files\Git\bin\bash.exe"
         sed -i '28s/ROCKSDBVNUM=`cat rocksdbversion`/ROCKSDBVNUM=6.4.6/' /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
         sh /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
-        cd /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/ && ls
-        cd /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/rocksdb-v6.4.6/linux-x64/native/ && ls
       shell: cmd
-    #- uses: actions/upload-artifact@v1
-    #  name: Uploading Windows artifact
-    #  if: matrix.os == 'windows-latest'
-    #  with:
-    #    name: windows_artifact_rocksdb
-    #    path: D:/a/rpc-diagnosis-tool/rpc-diagnosis-tool/bls/bin/bls384_256.dll
+    - uses: actions/upload-artifact@v1
+      name: Uploading Windows artifact
+      if: matrix.os == 'windows-latest'
+      with:
+        name: windows_artifact_rocksdb
+        path: rocksdb/rocksdb.dll
     - name: Building rocksDB for Linux
       if: matrix.os == 'ubuntu-latest'
       run: |
