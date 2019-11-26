@@ -36,6 +36,11 @@ jobs:
       if: matrix.os == 'macOS-latest'
       run: |
         git clone git://github.com/Cyan4973/lz4.git
+        curl https://download.developer.apple.com/Developer_Tools/Command_Line_Tools_macOS_10.13_for_Xcode_9.4/Command_Line_Tools_macOS_10.13_for_Xcode_9.4.dmg
+        sudo hdiutil attach Command_Line_Tools_macOS_10.13_for_Xcode_9.4.dmg
+        cd /Volumes/Command_Line_Tools_macOS_10.13_for_Xcode_9.4
+        sudo cp -rf Xcode9.4.app /Applications
+        sudo hdiutil detach /Volumes/Command_Line_Tools_macOS_10.13_for_Xcode_9.4
         brew install gcc
         brew install snappy
         brew install zstd
