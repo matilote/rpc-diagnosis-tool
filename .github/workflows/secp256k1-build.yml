@@ -25,3 +25,16 @@ jobs:
         ./autogen.sh
         ./configure --enable-module-recovery
         make
+        ./test
+    - name: Building rocksDB for OSX
+      if: matrix.os == 'macOS-latest'
+      run: |
+        brew install automake
+        brew install libtool
+        brew install gmp
+        cd secp256k1/
+        autoreconf -if --warnings=all
+        ./autogen.sh
+        ./configure --enable-module-recovery
+        make
+        ./test

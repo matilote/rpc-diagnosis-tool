@@ -23,19 +23,13 @@ jobs:
         call "C:\Program Files\Git\bin\bash.exe"
         sed -i '28s/ROCKSDBVNUM=`cat rocksdbversion`/ROCKSDBVNUM=6.4.6/' /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
         sh /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
-        cd /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/
-        ls -al
-        cd /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb/
-        ls -al
-        cd /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb/build/Release
-        ls -al
       shell: cmd
     - uses: actions/upload-artifact@v1
       name: Uploading Windows artifact
       if: matrix.os == 'windows-latest'
       with:
         name: windows_artifact_rocksdb
-        path: /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb/build/Release/runtimes/win-x64/native/rocksdb.dll
+        path: runtimes/win-x64/native/rocksdb.dll
     - name: Building rocksDB for Linux
       if: matrix.os == 'ubuntu-latest'
       run: |
@@ -44,13 +38,13 @@ jobs:
         cd rocksdb/
         git checkout v6.4.6
         make shared_lib
-        strip librocksdb.so
+        strip librocksdb.so.6.4.6
     - uses: actions/upload-artifact@v1
       name: Uploading Linux artifact
       if: matrix.os == 'ubuntu-latest'
       with:
         name: linux_artifact_rocksdb
-        path: rocksdb/librocksdb.so
+        path: rocksdb/librocksdb.so.6.4.6
     - name: Building rocksDB for OSX
       if: matrix.os == 'macOS-latest'
       run: |
@@ -74,4 +68,4 @@ jobs:
       if: matrix.os == 'macOS-latest'
       with:
         name: darwin_artifact_rocksdb
-        path: rocksdb/librocksdb.dylib
+        path: rocksdb/librocksdb.6.6.0.dylib
