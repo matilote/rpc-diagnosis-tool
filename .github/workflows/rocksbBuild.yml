@@ -11,7 +11,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest, macOS-latest, ubuntu-latest]
+        os: [windows-latest, macOS-10.12, ubuntu-latest]
     steps:
     - name: Cloning rocksDB repository
       run: |
@@ -33,9 +33,7 @@ jobs:
         echo 6.4.6 > rocksdbversion 
         ./build-rocksdb.sh
     - name: Building rocksDB for OSX
-      if: matrix.os == 'macOS-latest'
-      env:
-        DEVELOPER_DIR: /Applications/Xcode_9.4.1.app/Contents/Developer
+      if: matrix.os == 'macOS-10.12'
       run: |
         git clone git://github.com/Cyan4973/lz4.git
         brew install gcc
