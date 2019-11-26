@@ -23,6 +23,8 @@ jobs:
         call "C:\Program Files\Git\bin\bash.exe"
         sed -i '28s/ROCKSDBVNUM=`cat rocksdbversion`/ROCKSDBVNUM=6.4.6/' /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
         sh /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
+        cd /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/ && ls
+        cd /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/rocksdb-v6.4.6/linux-x64/native/ && ls
       shell: cmd
     - name: Building rocksDB for Linux
       if: matrix.os == 'ubuntu-latest'
@@ -31,6 +33,7 @@ jobs:
         cd rocksdb-sharp-native/
         echo 6.4.6 > rocksdbversion 
         ./build-rocksdb.sh
+        ls
     - name: Building rocksDB for OSX
       if: matrix.os == 'macOS-latest'
       run: |
@@ -48,6 +51,8 @@ jobs:
         make -C lz4/lib install
         git clone https://github.com/facebook/rocksdb.git
         cd rocksdb/
+        git checkout tags/6.3.6
         make shared_lib
         cd /usr/local/lib/
-        cp librocksdb.6.4.6.dylib librocksdb-6.4.6.dylib 
+        ls
+        cp librocksdb.6.3.6.dylib librocksdb-6.3.6.dylib 
