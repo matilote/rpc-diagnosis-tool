@@ -11,7 +11,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest, macOS-latest, ubuntu-latest]
+        os: [windows-latest, macOS, ubuntu-latest]
     steps:
     - name: Cloning rocksDB repository
       run: |
@@ -33,7 +33,7 @@ jobs:
         echo 6.4.6 > rocksdbversion 
         ./build-rocksdb.sh
     - name: Building rocksDB for OSX
-      if: matrix.os == 'macOS-latest'
+      if: matrix.os == 'macOS'
       run: |
         ls -n /Applications/ | grep Xcode*
         sudo xcode-select -s /Applications/Xcode_9.4.1.app/Contents/Developer
