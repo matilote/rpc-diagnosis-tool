@@ -36,7 +36,6 @@ jobs:
       if: matrix.os == 'macOS-latest'
       run: |
         git clone git://github.com/Cyan4973/lz4.git
-        xcode-select --install
         brew install gcc
         brew install snappy
         brew install zstd
