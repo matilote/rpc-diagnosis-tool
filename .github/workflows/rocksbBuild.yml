@@ -30,10 +30,18 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
       run: |
         sudo apt install libsnappy-dev libzstd-dev liblz4-dev zlib1g-dev
-        cd rocksdb-sharp-native/
-        echo 6.4.6 > rocksdbversion 
-        ./build-rocksdb.sh
-        ls
+        git clone https://github.com/facebook/rocksdb.git
+        cd rocksdb/
+        git checkout v6.4.6
+        make shared_lib
+        strip librocksdb.so.6.4.6
+        cp librocksdb.so.6.4.6 librocksdb.so
+    - uses: actions/upload-artifact@v1
+      name: Uploading Linux artifact
+      if: matrix.os == 'ubuntu-latest'
+      with:
+        name: linux_artifact_rocksdb
+        path: /home/runner/work/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb/librocksdb.so
     - name: Building rocksDB for OSX
       if: matrix.os == 'macOS-latest'
       run: |
@@ -51,8 +59,12 @@ jobs:
         make -C lz4/lib install
         git clone https://github.com/facebook/rocksdb.git
         cd rocksdb/
-        git checkout tags/6.3.6
+        git checkout v6.4.6
         make shared_lib
-        cd /usr/local/lib/
-        ls
-        cp librocksdb.6.3.6.dylib librocksdb-6.3.6.dylib 
+        cp librocksdb.6.4.6.dylib librocksdb.dylib
+    - uses: actions/upload-artifact@v1
+      name: Uploading Darwin artifact
+      if: matrix.os == 'macOS-latest'
+      with:
+        name: darwin_artifact_rocksdb
+        path: /Users/runner/runners/2.160.2/work/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb/librocksdb.dylib
