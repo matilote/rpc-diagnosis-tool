@@ -35,9 +35,18 @@ jobs:
     - name: Building rocksDB for OSX
       if: matrix.os == 'macOS-latest'
       run: |
+        xcode-select --install
         brew install gcc
-        brew install rocksdb
         brew install snappy
-        cd /Users/runner/runners/2.160.2/work/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/ &&  sed -e '181d' build-rocksdb.sh
-        echo 6.4.6 > rocksdbversion
+        brew install zstd
+	      git clone git://github.com/Cyan4973/lz4.git
+        make -C lz4/lib
+	      cp -L lz4/lib/liblz4.dylib ./liblz4_64.dylib
+	      make -C lz4/lib clean
+	      CFLAGS="-arch i386" CXXFLAGS="-arch i386" LDFLAGS="-arch i386" make -C lz4/lib
+	      cp -L lz4/lib/liblz4.dylib ./liblz4_32.dylib
+	      lipo -create ./liblz4_32.dylib ./liblz4_64.dylib -output ./liblz4.dylib
+	      cp -v ./liblz4.dylib lz4/lib/$(readlink lz4/lib/liblz4.dylib)
+	      touch lz4/lib/liblz4
+	      make -C lz4/lib install
         sh build-rocksdb.sh
