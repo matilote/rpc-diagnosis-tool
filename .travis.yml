@@ -2,7 +2,6 @@ language: csharp
 mono: none
 sudo: required
 os: osx
-dotnet: 3.0.100
 
 jobs:
   include:
@@ -20,5 +19,11 @@ jobs:
         cp -v ./liblz4.dylib lz4/lib/$(readlink lz4/lib/liblz4.dylib)
         touch lz4/lib/liblz4
         make -C lz4/lib install
-        sh build-rocksdb.sh
+        git clone https://github.com/facebook/rocksdb.git
+        cd rocksdb/
+        git checkout tags/6.4.6
+        make shared_lib
+        cd /usr/local/lib/
+        ls
+        cp librocksdb.6.4.6.dylib librocksdb-6.4.6.dylib 
       name: "RocksDB OSX Build"
