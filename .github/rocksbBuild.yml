@@ -1,0 +1,53 @@
+name: RocksDB Build TEST
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  rocksb-building:
+    name: Building RocksDB
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macOS-10.13, ubuntu-latest]
+    steps:
+    - name: Cloning rocksDB repository
+      run: |
+        git clone git://github.com/warrenfalk/rocksdb-sharp-native.git
+    - name: Building rocksDB for Windows
+      if: matrix.os == 'windows-latest'
+      run: |
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+        call "C:\Program Files\Git\bin\bash.exe"
+        sed -i '28s/ROCKSDBVNUM=`cat rocksdbversion`/ROCKSDBVNUM=6.4.6/' /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
+        sh /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
+        cd /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build/ && ls 
+      shell: cmd
+    - name: Building rocksDB for Linux
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt install libsnappy-dev libzstd-dev liblz4-dev zlib1g-dev
+        cd rocksdb-sharp-native/
+        echo 6.4.6 > rocksdbversion 
+        ./build-rocksdb.sh
+    - name: Building rocksDB for OSX
+      if: matrix.os == 'macOS-10.13'
+      run: |
+        ls -n /Applications/ | grep Xcode*
+        sudo xcode-select -s /Applications/Xcode_9.4.1.app/Contents/Developer
+        git clone git://github.com/Cyan4973/lz4.git
+        brew install gcc
+        brew install snappy
+        brew install zstd
+        make -C lz4/lib
+        cp -L lz4/lib/liblz4.dylib ./liblz4_64.dylib
+        make -C lz4/lib clean
+        CFLAGS="-arch i386" CXXFLAGS="-arch i386" LDFLAGS="-arch i386" make -C lz4/lib
+        cp -L lz4/lib/liblz4.dylib ./liblz4_32.dylib
+        lipo -create ./liblz4_32.dylib ./liblz4_64.dylib -output ./liblz4.dylib
+        cp -v ./liblz4.dylib lz4/lib/$(readlink lz4/lib/liblz4.dylib)
+        touch lz4/lib/liblz4
+        make -C lz4/lib install
+        sh build-rocksdb.sh
