@@ -25,7 +25,6 @@ jobs:
         ./autogen.sh
         ./configure --enable-module-recovery
         make
-        ./tests
     - name: Building rocksDB for OSX
       if: matrix.os == 'macOS-latest'
       run: |
@@ -37,4 +36,3 @@ jobs:
         ./autogen.sh
         ./configure --enable-module-recovery
         make
-        ./tests
