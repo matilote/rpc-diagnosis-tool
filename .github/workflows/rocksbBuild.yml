@@ -23,6 +23,12 @@ jobs:
         call "C:\Program Files\Git\bin\bash.exe"
         sed -i '28s/ROCKSDBVNUM=`cat rocksdbversion`/ROCKSDBVNUM=6.4.6/' /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
         sh /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
+        cd /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/
+        ls -al
+        cd /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb/
+        ls -al
+        cd /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb/build/Release
+        ls -al
       shell: cmd
     - uses: actions/upload-artifact@v1
       name: Uploading Windows artifact
