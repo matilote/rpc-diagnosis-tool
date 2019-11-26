@@ -29,7 +29,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       with:
         name: windows_artifact_rocksdb
-        path: rocksdb/rocksdb.dll
+        path: rocksdb/build/Release/runtimes/win-x64/native/rocksdb.dll
     - name: Building rocksDB for Linux
       if: matrix.os == 'ubuntu-latest'
       run: |
