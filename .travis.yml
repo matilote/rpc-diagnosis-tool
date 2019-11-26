@@ -15,9 +15,8 @@ jobs:
         make -C lz4/lib
         cp -L lz4/lib/liblz4.dylib ./liblz4_64.dylib
         make -C lz4/lib clean
-        CFLAGS="-arch i386" CXXFLAGS="-arch i386" LDFLAGS="-arch i386" make -C lz4/lib
-        cp -L lz4/lib/liblz4.dylib ./liblz4_32.dylib
-        lipo -create ./liblz4_32.dylib ./liblz4_64.dylib -output ./liblz4.dylib
+        CFLAGS="-arch x86_64" CXXFLAGS="-arch x86_64" LDFLAGS="-arch x86_64" make -C lz4/lib
+        lipo -create ./liblz4_64.dylib -output ./liblz4.dylib
         cp -v ./liblz4.dylib lz4/lib/$(readlink lz4/lib/liblz4.dylib)
         touch lz4/lib/liblz4
         make -C lz4/lib install
