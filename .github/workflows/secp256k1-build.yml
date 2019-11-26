@@ -1,0 +1,27 @@
+name: secp256k1 Build TEST
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  rocksb-building:
+    name: Building RocksDB
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macOS-latest, ubuntu-latest]
+    steps:
+    - name: Cloning secp256k1 repository
+      run: |
+        git clone https://github.com/bitcoin-core/secp256k1.git
+    - name: Building rocksDB for Linux
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt-get install autoconf libtool
+        cd secp256k1/
+        autoreconf -if --warnings=all
+        ./autogen.sh
+        ./configure --enable-module-recovery
+        make
