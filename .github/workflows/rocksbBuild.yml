@@ -35,7 +35,7 @@ jobs:
       if: matrix.os == 'macOS-latest'
       run: |
         git clone git://github.com/Cyan4973/lz4.git
-        brew install gcc@8
+        brew install gcc
         brew install snappy
         brew install zstd
         make -C lz4/lib
@@ -46,6 +46,9 @@ jobs:
         cp -v ./liblz4.dylib lz4/lib/$(readlink lz4/lib/liblz4.dylib)
         touch lz4/lib/liblz4
         make -C lz4/lib install
-        cd rocksdb-sharp-native/
-        sed -i '.bak' '180d;181d;182d;183d;184d;185d;186d' build-rocksdb.sh
-        sh build-rocksdb.sh
+        git clone https://github.com/facebook/rocksdb.git
+        cd rocksdb/
+        git checkout tags/v6.4.6
+        make shared_lib
+        cd /usr/local/lib/
+        cp librocksdb.6.4.6.dylib librocksdb-6.4.6.dylib 
