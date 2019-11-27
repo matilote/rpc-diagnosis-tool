@@ -26,6 +26,9 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: |
         call "C:\tools\msys64\mingw64.exe"
+        pacman -S autoconf
+        pacman -S libtool
+        pacman -S make
         mv secp256k1 64bit
         cd 64bit
         sh autogen.sh
