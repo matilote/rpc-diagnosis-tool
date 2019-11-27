@@ -20,5 +20,11 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: |
         choco install msys2
+        refreshenv
+        cd "C:\tools\msys64"
         dir
+      # mv secp256k1 64bit
+      # cd 64bit
+      # build_dll x86_64-w64-mingw32
+      # mv .libs/libsecp256k1-0.dll ../libsecp256k1.dll
       shell: cmd
