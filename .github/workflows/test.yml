@@ -33,3 +33,4 @@ jobs:
         ./configure --host=$1 --enable-module-recovery --enable-experimental --enable-module-ecdh --enable-endomorphism --disable-jni
         make
         mv .libs/libsecp256k1-0.dll ../libsecp256k1.dll
+      shell: cmd
