@@ -21,9 +21,15 @@ jobs:
       run: |
         choco install msys2
         refreshenv
+      shell: cmd
+    - name: Building cd
+      if: matrix.os == 'windows-latest'
+      run: |
         call "C:\tools\msys64\mingw64.exe"
         mv secp256k1 64bit
         cd 64bit
-        build_dll x86_64-w64-mingw32
+        ./autogen.sh
+        echo "LDFLAGS = -no-undefined" >> Makefile.am
+        ./configure --host=$1 --enable-module-recovery --enable-experimental --enable-module-ecdh --enable-endomorphism --disable-jni
+        make
         mv .libs/libsecp256k1-0.dll ../libsecp256k1.dll
-      shell: cmd
