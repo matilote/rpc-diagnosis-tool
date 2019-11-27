@@ -28,9 +28,9 @@ jobs:
         call "C:\tools\msys64\mingw64.exe"
         mv secp256k1 64bit
         cd 64bit
-        ./autogen.sh
+        sh autogen.sh
         echo "LDFLAGS = -no-undefined" >> Makefile.am
-        ./configure --host=$1 --enable-module-recovery --enable-experimental --enable-module-ecdh --enable-endomorphism --disable-jni
+        sh configure --host=$1 --enable-module-recovery --enable-experimental --enable-module-ecdh --enable-endomorphism --disable-jni
         make
         mv .libs/libsecp256k1-0.dll ../libsecp256k1.dll
       shell: cmd
