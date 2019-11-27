@@ -1,0 +1,24 @@
+name: secp256k1 Build TEST2
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  rocksb-building:
+    name: Building Secp256k1
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
+    steps:
+    - name: Cloning secp256k1 repository
+      run: |
+        git clone https://github.com/bitcoin-core/secp256k1.git
+    - name: Building secp for win
+      if: matrix.os == 'windows-latest'
+      run: |
+        choco install msys2
+        dir
+      shell: cmd
