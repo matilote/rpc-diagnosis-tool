@@ -25,8 +25,7 @@ jobs:
     - name: Building cd
       if: matrix.os == 'windows-latest'
       run: |
-        cd C:/tools/msys64
-        dir
+        cd c:\tools\msys64 && dir
         msys2_shell.cmd -mingw64
         pacman -S autoconf
         pacman -S libtool
