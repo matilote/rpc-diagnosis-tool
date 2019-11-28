@@ -22,8 +22,8 @@ jobs:
     #    choco install msys2
     #    refreshenv
     #  shell: cmd
+    - uses: numworks/setup-msys2@v1
     - name: Building cd
-      uses: numworks/setup-msys2@v1
       if: matrix.os == 'windows-latest'
       run: |
         msys2do pacman -S autoconf libtool make
