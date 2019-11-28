@@ -35,5 +35,6 @@ jobs:
                 sh configure --host=x86_64-w64-mingw32 --enable-module-recovery --enable-experimental --enable-module-ecdh
                 make
                 mv .libs/libsecp256k1-0.dll ../secp256k1.dll" > run.sh
+          cat run.sh
       shell: bash
     - run: msys2do ./run.sh
