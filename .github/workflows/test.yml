@@ -16,16 +16,17 @@ jobs:
     - name: Cloning secp256k1 repository
       run: |
         git clone https://github.com/bitcoin-core/secp256k1.git
-    - name: Building secp for win
-      if: matrix.os == 'windows-latest'
-      run: |
-        choco install msys2
-        refreshenv
-      shell: cmd
+    #- name: Building secp for win
+    #  if: matrix.os == 'windows-latest'
+    #  run: |
+    #    choco install msys2
+    #    refreshenv
+    #  shell: cmd
     - name: Building cd
+      uses: numworks/setup-msys2@v1
       if: matrix.os == 'windows-latest'
       run: |
-        c:\tools\msys64\usr\bin\bash -lc "pacman -S autoconf libtool make; ls"
+        msys2do pacman -S autoconf libtool make
         mv secp256k1 64bit
         cd 64bit
         sh autogen.sh
