@@ -62,8 +62,8 @@ jobs:
         echo "LDFLAGS = -no-undefined" >> Makefile.am
         ./configure --host=x86_64-w64-mingw32 --enable-module-recovery --enable-experimental --enable-module-ecdh --enable-shared
         make
+        strip .libs/libsecp256k1-0.dll
         mv .libs/libsecp256k1-0.dll ../secp256k1.dll
-        strip secp256k1.dll
         EOT
       if: matrix.os == 'windows-latest'
       name: Creating script for secp256k1 build
