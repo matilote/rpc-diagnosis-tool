@@ -26,7 +26,7 @@ jobs:
     - name: Building cd
       if: matrix.os == 'windows-latest'
       run: |
-        msys2do yes | sudo pacman -S autoconf libtool make && mv secp256k1 64bit && cd 64bit && sh autogen.sh
+        msys2do pacman --noconfirm -S autoconf libtool make && mv secp256k1 64bit && cd 64bit && sh autogen.sh
         msys2do echo "LDFLAGS = -no-undefined" >> Makefile.am
         msys2do sh configure --host=x86_64-w64-mingw32 --enable-module-recovery --enable-experimental --enable-module-ecdh
         msys2do make
