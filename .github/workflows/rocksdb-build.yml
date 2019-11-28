@@ -1,4 +1,4 @@
-name: RocksDB Build TEST
+name: RocksDB Build
 
 on:
   push:
@@ -39,12 +39,13 @@ jobs:
         git checkout v6.4.6
         make shared_lib
         strip librocksdb.so.6.4.6
+        mv librocksdb.so.6.4.6 librocksdb.so
     - uses: actions/upload-artifact@v1
       name: Uploading Linux artifact
       if: matrix.os == 'ubuntu-latest'
       with:
         name: linux_artifact_rocksdb
-        path: rocksdb/librocksdb.so.6.4.6
+        path: rocksdb/librocksdb.so
     - name: Building rocksDB for OSX
       if: matrix.os == 'macOS-latest'
       run: |
@@ -64,10 +65,12 @@ jobs:
         cd rocksdb/
         git checkout v6.4.6
         sed -i.bak '14s/CXXFLAGS += ${EXTRA_CXXFLAGS}/CXXFLAGS += -w/' Makefile
-        CXXFLAGS='-Wno-error=shadow -Wno-error=deprecated -Wno-error=pessimizing-move -Wno-error=defaulted-function-deleted' make shared_lib
+        make shared_lib
+        strip librocksdb.6.4.6.dylib
+        mv librocksdb.6.4.6.dylib librocksdb.dylib
     - uses: actions/upload-artifact@v1
       name: Uploading Darwin artifact
       if: matrix.os == 'macOS-latest'
       with:
         name: darwin_artifact_rocksdb
-        path: rocksdb/librocksdb.6.4.6.dylib
+        path: rocksdb/librocksdb.dylib

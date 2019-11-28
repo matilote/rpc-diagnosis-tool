@@ -1,4 +1,4 @@
-name: BLS test
+name: BLS Build
 
 on:
   push:
@@ -36,10 +36,8 @@ jobs:
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
         cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl && call mklib.bat dll
         cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl && call mk -d test\bls12_test.cpp
-        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl && call bin\bls12_test.exe
         cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls && call mklib.bat dll
         cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls && call mk -d test\bls_c384_test.cpp
-        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls && call bin\bls_c384_test.exe
       shell: cmd
     - uses: actions/upload-artifact@v1
       name: Uploading Windows artifact
