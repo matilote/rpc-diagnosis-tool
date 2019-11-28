@@ -16,12 +16,6 @@ jobs:
     - name: Cloning secp256k1 repository
       run: |
         git clone https://github.com/bitcoin-core/secp256k1.git
-    #- name: Building secp for win
-    #  if: matrix.os == 'windows-latest'
-    #  run: |
-    #    choco install msys2
-    #    refreshenv
-    #  shell: cmd
     - uses: numworks/setup-msys2@v1
     - name: Building cd
       if: matrix.os == 'windows-latest'

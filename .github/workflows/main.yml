@@ -15,7 +15,7 @@ jobs:
     steps:
     - name: Cloning required repositories
       run: |
-        git clone git://github.com/NethermindEth/bls.git
+        git clone git://github.com/rpc-diagnosis-toolEth/bls.git
         git clone git://github.com/herumi/mcl.git
     - name: Installing GMP for ubuntu
       if: matrix.os == 'ubuntu-latest'
@@ -34,19 +34,19 @@ jobs:
       run: |
         dir "C:\Program Files\"
         call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-        cd D:\a\nethermind\nethermind\mcl && call mklib.bat dll
-        cd D:\a\nethermind\nethermind\mcl && call mk -d test\bls12_test.cpp
-        cd D:\a\nethermind\nethermind\mcl && call bin\bls12_test.exe
-        cd D:\a\nethermind\nethermind\bls && call mklib.bat dll
-        cd D:\a\nethermind\nethermind\bls && call mk -d test\bls_c384_test.cpp
-        cd D:\a\nethermind\nethermind\bls && call bin\bls_c384_test.exe
+        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl && call mklib.bat dll
+        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl && call mk -d test\bls12_test.cpp
+        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl && call bin\bls12_test.exe
+        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls && call mklib.bat dll
+        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls && call mk -d test\bls_c384_test.cpp
+        cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls && call bin\bls_c384_test.exe
       shell: cmd
     - uses: actions/upload-artifact@v1
       name: Uploading Windows artifact
       if: matrix.os == 'windows-latest'
       with:
         name: windows_artifact
-        path: D:/a/nethermind/nethermind/bls/bin/bls384_256.dll
+        path: D:/a/rpc-diagnosis-tool/rpc-diagnosis-tool/bls/bin/bls384_256.dll
     - name: Building BLS for Linux
       if: matrix.os == 'ubuntu-latest'
       run: |
@@ -54,13 +54,13 @@ jobs:
         make all
     - name: Stripping Linux file
       if: matrix.os == 'ubuntu-latest'
-      run: strip /home/runner/work/nethermind/nethermind/bls/lib/libbls384_256.so
+      run: strip /home/runner/work/rpc-diagnosis-tool/rpc-diagnosis-tool/bls/lib/libbls384_256.so
     - uses: actions/upload-artifact@v1
       name: Uploading Linux artifact
       if: matrix.os == 'ubuntu-latest'
       with:
         name: linux_artifact
-        path: /home/runner/work/nethermind/nethermind/bls/lib/libbls384_256.so
+        path: /home/runner/work/rpc-diagnosis-tool/rpc-diagnosis-tool/bls/lib/libbls384_256.so
     - name: Building BLS for OSX
       if: matrix.os == 'macOS-latest'
       run: |
@@ -71,5 +71,5 @@ jobs:
       if: matrix.os == 'macOS-latest'
       with:
         name: darwin_artifact
-        path: /Users/runner/runners/2.160.2/work/nethermind/nethermind/bls/lib/libbls384_256.dylib
+        path: /Users/runner/runners/2.160.2/work/rpc-diagnosis-tool/rpc-diagnosis-tool/bls/lib/libbls384_256.dylib
 
