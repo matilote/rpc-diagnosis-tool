@@ -63,7 +63,7 @@ jobs:
         git clone https://github.com/facebook/rocksdb.git
         cd rocksdb/
         git checkout v6.4.6
-        sed -i '15 i\CXXFLAGS += -w' Makefile
+        sed -i '.bak' '15 i\CXXFLAGS += -w' Makefile
         CXXFLAGS='-Wno-error=shadow -Wno-error=deprecated -Wno-error=pessimizing-move -Wno-error=defaulted-function-deleted' make shared_lib
     - uses: actions/upload-artifact@v1
       name: Uploading Darwin artifact
