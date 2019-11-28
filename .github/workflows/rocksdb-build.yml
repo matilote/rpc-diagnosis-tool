@@ -36,10 +36,13 @@ jobs:
         sudo apt install libsnappy-dev libzstd-dev liblz4-dev zlib1g-dev
         git clone https://github.com/facebook/rocksdb.git
         cd rocksdb/
-        git checkout v6.4.6
+        git fetch --tags
+        latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
+        git checkout $latestTag
+        TAG="{$latestTag:1}"
         make shared_lib
-        strip librocksdb.so.6.4.6
-        mv librocksdb.so.6.4.6 librocksdb.so
+        strip librocksdb.so.${TAG}
+        mv librocksdb.so.${TAG} librocksdb.so
     - uses: actions/upload-artifact@v1
       name: Uploading Linux artifact
       if: matrix.os == 'ubuntu-latest'
@@ -63,10 +66,13 @@ jobs:
         make -C lz4/lib install
         git clone https://github.com/facebook/rocksdb.git
         cd rocksdb/
-        git checkout v6.4.6
+        git fetch --tags
+        latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
+        git checkout $latestTag
+        TAG="{$latestTag:1}"
         sed -i.bak '14s/CXXFLAGS += ${EXTRA_CXXFLAGS}/CXXFLAGS += -w/' Makefile
         make shared_lib
-        mv librocksdb.6.4.6.dylib librocksdb.dylib
+        mv librocksdb.${TAG}.dylib librocksdb.dylib
     - uses: actions/upload-artifact@v1
       name: Uploading Darwin artifact
       if: matrix.os == 'macOS-latest'
