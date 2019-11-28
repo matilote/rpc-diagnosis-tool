@@ -26,7 +26,7 @@ jobs:
     - name: Building cd
       if: matrix.os == 'windows-latest'
       run: |
-        msys2do pacman -S autoconf libtool make
+        msys2do pacman --noconfirm -S autoconf libtool make
         mv secp256k1 64bit
         cd 64bit
         sh autogen.sh
