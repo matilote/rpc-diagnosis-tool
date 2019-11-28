@@ -28,7 +28,7 @@ jobs:
       run: |
         msys2do pacman --noconfirm -S autoconf libtool make automake
     - run: msys2do LC_ALL=C pacman -Qi | awk '/^Name/{name=$3} /^Installed Size/{print $4$5, name}'
-    - shell: msys2do "{0}"
+    - shell: bash --noprofile --norc -eo pipefail "msys2do {0}"
       run: |
         mv secp256k1 64bit
         cd 64bit
