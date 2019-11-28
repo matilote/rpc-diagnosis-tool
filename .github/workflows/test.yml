@@ -26,7 +26,7 @@ jobs:
     - name: Building cd
       if: matrix.os == 'windows-latest'
       run: |
-        msys2do pacman --noconfirm -S autoconf libtool make automake mingw-w64-x86_64-gcc
+        msys2do pacman --noconfirm -S autoconf libtool make automake gcc mingw-w64-x86_64-gcc
     - run: |
         cat <<EOT >> run.sh
         mv secp256k1 64bit
@@ -34,6 +34,8 @@ jobs:
         ./autogen.sh 
         echo "LDFLAGS = -no-undefined" >> Makefile.am
         ./configure --host=x86_64-w64-mingw32 --enable-module-recovery --enable-experimental --enable-module-ecdh --enable-shared
+        make
+        mv .libs/libsecp256k1-0.dll ../secp256k1.dll
         EOT
       shell: bash
     - run: msys2do ./run.sh
