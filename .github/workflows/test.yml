@@ -27,7 +27,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: |
         msys2do pacman --noconfirm -S autoconf libtool make
-    - run: msys2do LC_ALL=C pacman -Qi | awk '/^Name/{name=$3} /^Installed Size/{print $4$5, name}' | sort -h
+    - run: msys2do LC_ALL=C pacman -Qi | awk '/^Name/{name=$3} /^Installed Size/{print $4$5, name}'
     - run: msys2do mv secp256k1 64bit && cd 64bit && sh autogen.sh
         msys2do echo "LDFLAGS = -no-undefined" >> Makefile.am
         msys2do sh configure --host=x86_64-w64-mingw32 --enable-module-recovery --enable-experimental --enable-module-ecdh
