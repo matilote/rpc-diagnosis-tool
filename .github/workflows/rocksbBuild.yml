@@ -62,11 +62,11 @@ jobs:
         make -C lz4/lib install
         git clone https://github.com/facebook/rocksdb.git
         cd rocksdb/
-        git checkout v6.1.2
-        make shared_lib -Wno-error=shadow
+        git checkout v6.4.6
+        CXXFLAGS='-Wno-error=deprecated-copy -Wno-error=pessimizing-move' make shared_lib
     - uses: actions/upload-artifact@v1
       name: Uploading Darwin artifact
       if: matrix.os == 'macOS-latest'
       with:
         name: darwin_artifact_rocksdb
-        path: rocksdb/librocksdb.6.1.2.dylib
+        path: rocksdb/librocksdb.6.4.6.dylib
