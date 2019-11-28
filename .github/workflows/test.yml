@@ -25,10 +25,7 @@ jobs:
     - name: Building cd
       if: matrix.os == 'windows-latest'
       run: |
-        start c:\tools\msys64\msys2_shell.cmd -mingw64 
-        pacman -S autoconf
-        pacman -S libtool
-        pacman -S make
+        c:\tools\msys64\usr\bin\bash -lc "pacman -S autoconf libtool make; ls"
         mv secp256k1 64bit
         cd 64bit
         sh autogen.sh
