@@ -41,7 +41,6 @@ jobs:
         ./autogen.sh
         ./configure -enable-module-recovery --enable-experimental --enable-module-ecdh --enable-shared
         make
-        strip .libs/libsecp256k1.dylib
     - uses: actions/upload-artifact@v1
       name: Uploading Darwin artifact
       if: matrix.os == 'macOS-latest'
