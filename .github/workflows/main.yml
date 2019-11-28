@@ -46,7 +46,7 @@ jobs:
       if: matrix.os == 'windows-latest'
       with:
         name: windows_artifact
-        path: D:/a/rpc-diagnosis-tool/rpc-diagnosis-tool/bls/bin/bls384_256.dll
+        path: bls/bin/bls384_256.dll
     - name: Building BLS for Linux
       if: matrix.os == 'ubuntu-latest'
       run: |
@@ -60,7 +60,7 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
       with:
         name: linux_artifact
-        path: /home/runner/work/rpc-diagnosis-tool/rpc-diagnosis-tool/bls/lib/libbls384_256.so
+        path: bls/lib/libbls384_256.so
     - name: Building BLS for OSX
       if: matrix.os == 'macOS-latest'
       run: |
@@ -71,5 +71,5 @@ jobs:
       if: matrix.os == 'macOS-latest'
       with:
         name: darwin_artifact
-        path: /Users/runner/runners/2.160.2/work/rpc-diagnosis-tool/rpc-diagnosis-tool/bls/lib/libbls384_256.dylib
+        path: bls/lib/libbls384_256.dylib
 
