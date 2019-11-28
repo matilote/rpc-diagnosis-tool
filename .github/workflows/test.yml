@@ -26,7 +26,7 @@ jobs:
     - name: Building cd
       if: matrix.os == 'windows-latest'
       run: |
-        msys2do pacman --noconfirm -S autoconf libtool make automake gcc
+        msys2do pacman --noconfirm -S autoconf libtool make automake mingw-w64-x86_64-gcc
     - run: |
         cat <<EOT >> run.sh
         mv secp256k1 64bit
@@ -37,6 +37,3 @@ jobs:
         EOT
       shell: bash
     - run: msys2do ./run.sh
-    - run: msys2do make
-        mv .libs/libsecp256k1-0.dll ../secp256k1.dll
-      shell: bash
