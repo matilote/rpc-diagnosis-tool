@@ -29,6 +29,6 @@ jobs:
         msys2do pacman --noconfirm -S autoconf libtool make automake
     - run: msys2do LC_ALL=C pacman -Qi | awk '/^Name/{name=$3} /^Installed Size/{print $4$5, name}'
     - run: msys2do mv secp256k1 64bit
-    - run: msys2do sh 64bit/autogen.sh 
+    - run: msys2do cd 64bit && msys2do sh autogen.sh 
     - run: msys2do echo "LDFLAGS = -no-undefined" >> Makefile.am && sh configure --host=x86_64-w64-mingw32 --enable-module-recovery --enable-experimental --enable-module-ecdh && make && mv .libs/libsecp256k1-0.dll ../secp256k1.dll
       shell: cmd
