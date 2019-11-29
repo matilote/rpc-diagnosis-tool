@@ -16,7 +16,7 @@ jobs:
     - name: Install Alpine chroot
       run: |
         ls
-        cd alpine-chroot-install/alpine-chroot-install/
+        cd alpine-chroot-install/
         ls
         sh alpine-chroot-install.sh
     - name: Setting user
