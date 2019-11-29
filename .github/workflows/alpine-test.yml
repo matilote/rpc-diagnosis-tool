@@ -21,7 +21,9 @@ jobs:
       run: |
         /alpine/enter-chroot uname -a
         /alpine/enter-chroot env
-        /alpine/enter-chroot -u $USER ls
+        /alpine/enter-chroot -u $USER mkdir rocksdb
+        /alpine/enter-chroot -u $USER chown root:root -R rocksdb
+        /alpine/enter-chroot -u $USER cd rocksdb/
         /alpine/enter-chroot -u $USER git clone https://github.com/facebook/rocksdb.git
         /alpine/enter-chroot -u $USER cd rocksdb/
         /alpine/enter-chroot -u $USER git fetch --tags
