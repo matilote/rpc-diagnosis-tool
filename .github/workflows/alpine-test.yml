@@ -1,0 +1,27 @@
+name: Alpine Test
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  bls-building:
+    name: Building bls
+    runs-on: ubuntu-latest
+    steps:
+    - name: Cloning required repositories
+      run: |
+        git clone git://github.com/alpinelinux/alpine-chroot-install.git
+    - name: Install Alpine chroot
+      run: |
+        cd alpinelinux/
+        sh alpine-chroot-install.sh
+    - name: Setting user
+      run: |
+        ls
+        /alpine/enter-chroot uname -a
+        /alpine/enter-chroot env
+        /alpine/enter-chroot -u $USER env
+        sudo /alpine/enter-chroot -u $USER env
+        test "$(/alpine/enter-chroot printf %s! 'Hello, world')" = 'Hello, world!'        
