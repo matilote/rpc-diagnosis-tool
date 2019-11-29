@@ -21,8 +21,7 @@ jobs:
       run: |
         /alpine/enter-chroot uname -a
         /alpine/enter-chroot -u root env
-        /alpine/enter-chroot -u root git clone https://github.com/facebook/rocksdb.git
+        /alpine/enter-chroot -u root "$(git clone https://github.com/facebook/rocksdb.git && cd rocksdb && make shared_lib)"
         /alpine/enter-chroot -u root ls -al
-    - run: /alpine/enter-chroot -u root "$(cd {PWD}/rocksdb && make shared_lib)"
 
 
