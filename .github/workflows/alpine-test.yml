@@ -20,7 +20,7 @@ jobs:
     - name: Building RocksDB for Alpine Linux
       run: |
         /alpine/enter-chroot uname -a
-        /alpine/enter-chroot -u root cat <<EOT >> build.sh
+        /alpine/enter-chroot -u root "$(cat <<EOT >> build.sh
         git clone https://github.com/facebook/rocksdb.git
         cd rocksdb/
         git fetch --tags
@@ -30,7 +30,7 @@ jobs:
         make shared_lib
         strip librocksdb.so.${TAG}
         mv librocksdb.so.${TAG} librocksdb.so
-        EOT 
+        EOT)"
         /alpine/enter-chroot -u root cat build.sh
         /alpine/enter-chroot -u root ./build.sh
 
