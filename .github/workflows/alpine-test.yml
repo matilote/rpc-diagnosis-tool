@@ -21,15 +21,12 @@ jobs:
       run: |
         /alpine/enter-chroot uname -a
         /alpine/enter-chroot env
-        /alpine/enter-chroot -u $USER mkdir rocksdb
-        /alpine/enter-chroot -u $USER chown root:root -R rocksdb
-        /alpine/enter-chroot -u $USER cd rocksdb/
-        /alpine/enter-chroot -u $USER git clone https://github.com/facebook/rocksdb.git
-        /alpine/enter-chroot -u $USER cd rocksdb/
-        /alpine/enter-chroot -u $USER git fetch --tags
-        /alpine/enter-chroot -u $USER latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
-        /alpine/enter-chroot -u $USER git checkout $latestTag
-        /alpine/enter-chroot -u $USER TAG="${latestTag:1}"
-        /alpine/enter-chroot -u $USER make shared_lib
-        /alpine/enter-chroot -u $USER strip librocksdb.so.${TAG}
-        /alpine/enter-chroot -u $USER mv librocksdb.so.${TAG} librocksdb.so
+        /alpine/enter-chroot -u root git clone https://github.com/facebook/rocksdb.git
+        /alpine/enter-chroot -u root cd rocksdb/
+        /alpine/enter-chroot -u root git fetch --tags
+        /alpine/enter-chroot -u root latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
+        /alpine/enter-chroot -u root git checkout $latestTag
+        /alpine/enter-chroot -u root TAG="${latestTag:1}"
+        /alpine/enter-chroot -u root make shared_lib
+        /alpine/enter-chroot -u root strip librocksdb.so.${TAG}
+        /alpine/enter-chroot -u root mv librocksdb.so.${TAG} librocksdb.so
