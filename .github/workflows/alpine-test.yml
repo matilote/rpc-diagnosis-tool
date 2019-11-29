@@ -22,7 +22,7 @@ jobs:
         /alpine/enter-chroot uname -a
         /alpine/enter-chroot git clone https://github.com/facebook/rocksdb.git
         /alpine/enter-chroot ls
-        /alpine/enter-chroot rocksdb/make shared_lib
+        /alpine/enter-chroot "$(cd rocksdb && make shared_lib)"
         /alpine/enter-chroot strip librocksdb.so.${TAG}
         /alpine/enter-chroot mv librocksdb.so.${TAG} librocksdb.so
         /alpine/enter-chroot ls
