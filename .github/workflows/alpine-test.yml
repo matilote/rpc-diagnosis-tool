@@ -21,8 +21,9 @@ jobs:
       run: |
         /alpine/enter-chroot uname -a
         /alpine/enter-chroot -u root git clone https://github.com/facebook/rocksdb.git
+        ls
         /alpine/enter-chroot -u root pwd
-        /alpine/enter-chroot -u root "$(cd /home/runner/work/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb && make shared_lib)"
+        /alpine/enter-chroot -u root "$(cd rocksdb && make shared_lib)"
         /alpine/enter-chroot -u root ls -al
         /alpine/enter-chroot -u root ./build.sh
 
