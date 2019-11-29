@@ -16,7 +16,7 @@ jobs:
     - name: Install Alpine chroot
       run: |
         cd alpine-chroot-install/
-        sudo ./alpine-chroot-install -d /alpine -p build-base -p libsnappy-dev -p libzstd-dev -p liblz4-dev -p zlib1g-dev
+        sudo ./alpine-chroot-install -d /alpine -p build-base -p snappy -p zstd-dev -p lz4-dev -p zlib-dev
     - name: Setting user
       run: |
         /alpine/enter-chroot uname -a
