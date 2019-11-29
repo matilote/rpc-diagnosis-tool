@@ -28,4 +28,4 @@ jobs:
         TAG="${latestTag:1}" && \
         make shared_lib && \
         strip librocksdb.so.${TAG} && \ 
-        mv librocksdb.so.${TAG} librocksdb.so && \
+        mv librocksdb.so.${TAG} librocksdb.so)"
