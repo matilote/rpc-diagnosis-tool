@@ -20,11 +20,11 @@ jobs:
     - name: Building RocksDB for Alpine Linux
       run: |
         /alpine/enter-chroot uname -a
-        /alpine/enter-chroot git clone https://github.com/facebook/rocksdb.git
-        /alpine/enter-chroot ls
-        /alpine/enter-chroot echo "cd rocksdb" >> build.sh
-        /alpine/enter-chroot echo "make shared_lib" >> build.sh
-        /alpine/enter-chroot ls
-        /alpine/enter-chroot build.sh
+        /alpine/enter-chroot -u $USER git clone https://github.com/facebook/rocksdb.git
+        /alpine/enter-chroot -u $USER ls
+        /alpine/enter-chroot -u $USER echo "cd rocksdb" >> build.sh
+        /alpine/enter-chroot -u $USER echo "make shared_lib" >> build.sh
+        /alpine/enter-chroot -u $USER ls -al
+        /alpine/enter-chroot -u $USER build.sh
 
 
