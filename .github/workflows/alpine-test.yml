@@ -16,7 +16,7 @@ jobs:
     - name: Install Alpine chroot
       run: |
         cd alpine-chroot-install/
-        sudo ./alpine-chroot-install -a aarch64 -d /alpine -p build-base -p snappy -p zstd-dev -p lz4-dev -p zlib-dev
+        sudo ./alpine-chroot-install -d /alpine -p build-base -p snappy -p zstd-dev -p lz4-dev -p zlib-dev
     - name: Building RocksDB for Alpine Linux
       run: |
         /alpine/enter-chroot uname -a
