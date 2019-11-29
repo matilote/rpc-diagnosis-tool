@@ -29,7 +29,7 @@ jobs:
         git checkout $latestTag && \
         TAG="${latestTag:1}" && \
         sed -i.bak '703d;705d;707d' Makefile && \
-        make shared_lib)" && \
+        make shared_lib && \
         strip librocksdb.so.${TAG} && \ 
         mv librocksdb.so.${TAG} librocksdb.so)"
     - uses: actions/upload-artifact@v1
