@@ -13,7 +13,7 @@ jobs:
     - name: Cloning required repositories
       run: |
         git clone git://github.com/alpinelinux/alpine-chroot-install.git
-    - name: Install Alpine chroot
+    - name: Install Alpine Linux chroot
       run: |
         cd alpine-chroot-install/
         sudo ./alpine-chroot-install -d /alpine -p build-base -p snappy -p zstd-dev -p lz4-dev -p zlib-dev -p git
@@ -22,8 +22,7 @@ jobs:
         /alpine/enter-chroot uname -a
         /alpine/enter-chroot -u root git clone https://github.com/facebook/rocksdb.git
         /alpine/enter-chroot -u root pwd
-        /alpine/enter-chroot -u root echo "cd rocksdb" >> build.sh
-        /alpine/enter-chroot -u root echo "make shared_lib" >> build.sh
+        /alpine/enter-chroot -u root "$(cd /home/runner/work/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb && make shared_lib)"
         /alpine/enter-chroot -u root ls -al
         /alpine/enter-chroot -u root ./build.sh
 
