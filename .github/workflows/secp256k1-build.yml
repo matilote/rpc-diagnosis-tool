@@ -22,7 +22,7 @@ jobs:
         sudo apt-get install autoconf libtool
         cd secp256k1/
         ./autogen.sh
-        ./configure -enable-module-recovery --enable-experimental --enable-module-ecdh --enable-shared
+        ./configure -enable-module-recovery --enable-experimental --enable-module-ecdh --enable-shared --with-bignum=no
         make
         strip .libs/libsecp256k1.so
     - uses: actions/upload-artifact@v1
@@ -39,7 +39,7 @@ jobs:
         brew install gmp
         cd secp256k1/
         ./autogen.sh
-        ./configure -enable-module-recovery --enable-experimental --enable-module-ecdh --enable-shared
+        ./configure -enable-module-recovery --enable-experimental --enable-module-ecdh --enable-shared --with-bignum=no
         make
     - uses: actions/upload-artifact@v1
       name: Uploading Darwin artifact
@@ -60,7 +60,7 @@ jobs:
         cd 64bit
         ./autogen.sh 
         echo "LDFLAGS = -no-undefined" >> Makefile.am
-        ./configure --host=x86_64-w64-mingw32 --enable-module-recovery --enable-experimental --enable-module-ecdh --enable-shared
+        ./configure --host=x86_64-w64-mingw32 --enable-module-recovery --enable-experimental --enable-module-ecdh --enable-shared --with-bignum=no
         make
         strip .libs/libsecp256k1-0.dll
         mv .libs/libsecp256k1-0.dll .libs/secp256k1.dll
