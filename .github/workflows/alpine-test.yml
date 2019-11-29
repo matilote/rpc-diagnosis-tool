@@ -20,7 +20,6 @@ jobs:
     - name: Building RocksDB for Alpine Linux
       run: |
         /alpine/enter-chroot uname -a
-        /alpine/enter-chroot env
         /alpine/enter-chroot -u root cat <<EOT >> build.sh
         git clone https://github.com/facebook/rocksdb.git
         cd rocksdb/
