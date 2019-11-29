@@ -7,7 +7,7 @@ on:
 
 jobs:
   bls-building:
-    name: Building bls
+    name: Building Alpine Linux
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:

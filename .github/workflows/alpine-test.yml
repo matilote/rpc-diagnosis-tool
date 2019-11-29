@@ -15,7 +15,8 @@ jobs:
         git clone git://github.com/alpinelinux/alpine-chroot-install.git
     - name: Install Alpine chroot
       run: |
-        cd alpinelinux/
+        ls
+        cd alpine-chroot-install/
         sh alpine-chroot-install.sh
     - name: Setting user
       run: |
