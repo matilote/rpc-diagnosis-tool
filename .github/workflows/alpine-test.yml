@@ -16,12 +16,20 @@ jobs:
     - name: Install Alpine chroot
       run: |
         cd alpine-chroot-install/
-        sudo ./alpine-chroot-install -d /alpine -p build-base -p cmake
+        sudo ./alpine-chroot-install -d /alpine -p build-base -p libsnappy-dev -p libzstd-dev -p liblz4-dev -p zlib1g-dev
     - name: Setting user
       run: |
-        ls
         /alpine/enter-chroot uname -a
         /alpine/enter-chroot env
         /alpine/enter-chroot -u $USER env
-        sudo /alpine/enter-chroot -u $USER env
-        test "$(/alpine/enter-chroot printf %s! 'Hello, world')" = 'Hello, world!'        
+    - name: Building RocksDB for Alpine Linux
+      run: |
+        git clone https://github.com/facebook/rocksdb.git
+        cd rocksdb/
+        git fetch --tags
+        latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
+        git checkout $latestTag
+        TAG="${latestTag:1}"
+        make shared_lib
+        strip librocksdb.so.${TAG}
+        mv librocksdb.so.${TAG} librocksdb.so
