@@ -16,7 +16,7 @@ jobs:
     - name: Install Alpine chroot
       run: |
         cd alpine-chroot-install/
-        sudo alpine-chroot-install -d /alpine -p build-base -p cmake
+        sudo ./alpine-chroot-install -d /alpine -p build-base -p cmake
     - name: Setting user
       run: |
         ls
