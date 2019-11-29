@@ -21,6 +21,6 @@ jobs:
       run: |
         /alpine/enter-chroot uname -a
         /alpine/enter-chroot env
-        /alpine/enter-chroot -u root git clone git://github.com/facebook/rocksdb.git && cd rocksdb/ && make shared_lib
+        /alpine/enter-chroot -u root git clone git://github.com/facebook/rocksdb.git && pwd && ls && cd rocksdb/ && make shared_lib
         /alpine/enter-chroot -u root strip librocksdb.so.${TAG}
         /alpine/enter-chroot -u root mv librocksdb.so.${TAG} librocksdb.so
