@@ -15,6 +15,9 @@ jobs:
         git clone git://github.com/alpinelinux/alpine-chroot-install.git
     - name: Installing Alpine Linux chroot
       run: |
+        sudo apt-get update -y
+        sudo apt-get install -y qemu-user-static
+        sudo apt-get install -y binfmt-support
         cd alpine-chroot-install/
         sudo ./alpine-chroot-install -a armv7 -d /alpine -p build-base -p snappy -p zstd-dev -p lz4-dev -p zlib-dev -p git
     - name: Building RocksDB for Alpine Linux
