@@ -34,7 +34,6 @@ jobs:
       continue-on-error: true
     - uses: actions/upload-artifact@v1
       name: Uploading Alpine Linux artifact
-      if: matrix.os == 'ubuntu-latest'
       with:
         name: alpine_linux_artifact_rocksdb
         path: rocksdb/librocksdb.so
