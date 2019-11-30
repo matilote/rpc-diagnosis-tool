@@ -31,7 +31,7 @@ jobs:
         make shared_lib && \
         strip librocksdb.so.${TAG} && \ 
         mv librocksdb.so.${TAG} librocksdb.so)"
-      if: succeeded() || failed()
+      continue-on-error: true
     - uses: actions/upload-artifact@v1
       name: Uploading Alpine Linux artifact
       if: matrix.os == 'ubuntu-latest'
