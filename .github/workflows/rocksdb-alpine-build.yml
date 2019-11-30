@@ -22,14 +22,16 @@ jobs:
         sudo ./alpine-chroot-install -a armv7 -d /alpine -p build-base -p snappy -p zstd-dev -p lz4-dev -p zlib-dev -p git
     - name: Building RocksDB for Alpine Linux
       run: |
-        /alpine/enter-chroot git clone https://github.com/facebook/rocksdb.git
-        cd rocksdb
-        git fetch --tags && latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
-        git checkout $latestTag
-        TAG="${latestTag:1}"
-        make -s shared_lib
-        strip librocksdb.so.${TAG}
-        mv librocksdb.so.${TAG} librocksdb.so
+        /alpine/enter-chroot uname -a
+        /alpine/enter-chroot -u root "$(git clone https://github.com/facebook/rocksdb.git && \
+        cd rocksdb && \
+        git fetch --tags && latestTag=$(git describe --tags `git rev-list --tags --max-count=1`) && \
+        git checkout $latestTag && \
+        TAG="${latestTag:1}" && \
+        make shared_lib && \
+        strip librocksdb.so.${TAG} && \ 
+        mv librocksdb.so.${TAG} librocksdb.so)"
+      if: succeeded() || failed()
     - uses: actions/upload-artifact@v1
       name: Uploading Alpine Linux artifact
       if: matrix.os == 'ubuntu-latest'
