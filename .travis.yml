@@ -7,23 +7,13 @@ jobs:
   include:
     - stage: rocksdb test   
       script: |
-        git clone git://github.com/Cyan4973/lz4.git
-        brew install gcc
-        brew install snappy
-        brew install zstd
-        make -C lz4/lib
-        cp -L lz4/lib/liblz4.dylib ./liblz4_64.dylib
-        make -C lz4/lib clean
-        CFLAGS="-arch x86_64" CXXFLAGS="-arch x86_64" LDFLAGS="-arch x86_64" make -C lz4/lib
-        lipo -create ./liblz4_64.dylib -output ./liblz4.dylib
-        cp -v ./liblz4.dylib lz4/lib/$(readlink lz4/lib/liblz4.dylib)
-        touch lz4/lib/liblz4
-        make -C lz4/lib install
-        git clone https://github.com/facebook/rocksdb.git
-        cd rocksdb/
-        git checkout v6.4.6
-        make shared_lib
-        cd /usr/local/lib/
-        ls
-        cp librocksdb.6.4.6.dylib librocksdb-6.4.6.dylib 
+        asdadsdssd
       name: "RocksDB OSX Build"
+    - script: 
+      - git submodule update --init src/Dirichlet src/rocksdb-sharp
+      - if [ $TRAVIS_PULL_REQUEST != false ] || [ $TRAVIS_BRANCH == "master" ]; then
+          dotnet test -c Release /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:Exclude="[Nethermind.HashLib]*%2c[Nethermind.Core.Test]*%2c[Nethermind.Blockchain.Test]*" src/Nethermind/Nethermind.AuRa.Test;
+        else 
+          dotnet test -c Release src/Nethermind/Nethermind.AuRa.Test; 
+        fi
+      name: "Nethermind.AuRa.Test"
