@@ -41,7 +41,7 @@ jobs:
       shell: cmd
     - name: Stripping Windows file
       if: matrix.os == 'windows-latest'
-      run: strip D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\bin\bls384_256.dll
+      run: strip /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/bls/bin/bls384_256.dll
       shell: bash
     - uses: actions/upload-artifact@v1
       name: Uploading Windows artifact
