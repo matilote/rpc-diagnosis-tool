@@ -2,12 +2,13 @@ language: csharp
 mono: none
 sudo: required
 os: osx
-
+env:
+  TEST="TESTING VARIABLES"
 jobs:
   include:
     - stage: rocksdb test   
       script: |
-        asdadsdssd
+        echo $TEST
       name: "RocksDB OSX Build"
     - script: 
       - git submodule update --init src/Dirichlet src/rocksdb-sharp
