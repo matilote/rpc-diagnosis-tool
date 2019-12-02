@@ -7,7 +7,7 @@ on:
 
 jobs:
   bls-building:
-    name: Building Alpine Linux
+    name: Building BLS
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -38,8 +38,11 @@ jobs:
         cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\mcl && call mk -d test\bls12_test.cpp
         cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls && call mklib.bat dll
         cd D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls && call mk -d test\bls_c384_test.cpp
-        strip D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\bin\bls384_256.dll
       shell: cmd
+    - name: Stripping Windows file
+      if: matrix.os == 'windows-latest'
+      run: strip D:\a\rpc-diagnosis-tool\rpc-diagnosis-tool\bls\bin\bls384_256.dll
+      shell: bash
     - uses: actions/upload-artifact@v1
       name: Uploading Windows artifact
       if: matrix.os == 'windows-latest'
@@ -52,9 +55,9 @@ jobs:
         cd bls/
         make all
         strip /home/runner/work/rpc-diagnosis-tool/rpc-diagnosis-tool/bls/lib/libbls384_256.so
-    #- name: Stripping Linux file
-    #  if: matrix.os == 'ubuntu-latest'
-    #  run: strip /home/runner/work/rpc-diagnosis-tool/rpc-diagnosis-tool/bls/lib/libbls384_256.so
+    - name: Stripping Linux file
+      if: matrix.os == 'ubuntu-latest'
+      run: strip /home/runner/work/rpc-diagnosis-tool/rpc-diagnosis-tool/bls/lib/libbls384_256.so
     - uses: actions/upload-artifact@v1
       name: Uploading Linux artifact
       if: matrix.os == 'ubuntu-latest'
