@@ -15,8 +15,7 @@ jobs:
       run: |
         docker run -d -it --name nethermind-rocksdb nethermind-rocksdb
         docker cp nethermind-rocksdb:/usr/local/rocksdb/lib/librocksdb.so .
-        ls
-        pwd
+        strip librocksdb.so
     - uses: actions/upload-artifact@v1
       name: Uploading Alpine Linux artifact
       with:
