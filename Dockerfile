@@ -10,6 +10,7 @@ RUN git clone https://github.com/gflags/gflags.git && \
     cmake -DBUILD_SHARED_LIBS=1 -DGFLAGS_INSTALL_SHARED_LIBS=1 .. && \
     make install && \
     cd ~ && \
+    ls && \
     rm -R gflags/
 
 RUN git clone https://github.com/facebook/rocksdb.git && \
