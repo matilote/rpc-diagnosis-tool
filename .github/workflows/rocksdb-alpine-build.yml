@@ -19,7 +19,7 @@ jobs:
         sudo apt-get install -y qemu-user-static
         sudo apt-get install -y binfmt-support
         cd alpine-chroot-install/
-        sudo ./alpine-chroot-install -d /alpine -r http://dl-3.alpinelinux.org/alpine/edge/testing/ -p build-base -p linux-headers -p cmake -p bash -p git -p zlib -p zlib-dev -p bzip2 -p bzip2-dev -p snappy -p snappy-dev -p lz4 -p lz4-dev -p zstd -p zstd-dev -p libtbb@testing
+        sudo ./alpine-chroot-install -d /alpine -r http://nl.alpinelinux.org/alpine/edge/testing/x86_64/ -p build-base -p linux-headers -p cmake -p bash -p git -p zlib -p zlib-dev -p bzip2 -p bzip2-dev -p snappy -p snappy-dev -p lz4 -p lz4-dev -p zstd -p zstd-dev -p libtbb@testing
     - name: Installing gflagsd
       run: |
         /alpine/enter-chroot -u root "$(git clone https://github.com/gflags/gflags.git && \
