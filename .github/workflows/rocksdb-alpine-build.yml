@@ -20,6 +20,16 @@ jobs:
         sudo apt-get install -y binfmt-support
         cd alpine-chroot-install/
         sudo ./alpine-chroot-install -a x86_64 -d /alpine -p build-base -p snappy -p zstd-dev -p lz4-dev -p zlib-dev -p git -p bzip2-dev
+    - name: Installing gflags
+        /alpine/enter-chroot -u root "$(cd /tmp && \
+        git clone https://github.com/gflags/gflags.git && \
+        cd gflags && \
+        mkdir build && \
+        cd build && \
+        cmake -DBUILD_SHARED_LIBS=1 -DGFLAGS_INSTALL_SHARED_LIBS=1 .. && \
+        make install && \
+        cd /tmp && \
+        rm -R /tmp/gflags/)"
     - name: Building RocksDB for Alpine Linux
       run: |
         /alpine/enter-chroot uname -a
