@@ -1,6 +1,7 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0.101-alpine3.10 AS build
 
-RUN apk upgrade && apk add --update --no-cache --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ build-base linux-headers git cmake bash zlib zlib-dev bzip2 bzip2-dev snappy snappy-dev lz4 lz4-dev zstd zstd-dev libtbb-dev@testing libtbb@testing
+RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >>/etc/apk/repositories
+RUN apk upgrade && apk add --update --no-cache build-base linux-headers git cmake bash zlib zlib-dev bzip2 bzip2-dev snappy snappy-dev lz4 lz4-dev zstd zstd-dev libtbb-dev@testing libtbb@testing
 
 RUN git clone https://github.com/gflags/gflags.git && \
     cd gflags && \
