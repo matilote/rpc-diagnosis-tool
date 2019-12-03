@@ -28,6 +28,7 @@ jobs:
         cd build && \
         sudo cmake -DBUILD_SHARED_LIBS=1 -DGFLAGS_INSTALL_SHARED_LIBS=1 .. && \
         sudo make install)"
+      continue-on-error: true
     - name: Building RocksDB for Alpine Linux
       run: |
         /alpine/enter-chroot uname -a
