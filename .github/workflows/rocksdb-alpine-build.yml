@@ -19,8 +19,8 @@ jobs:
         sudo apt-get install -y qemu-user-static
         sudo apt-get install -y binfmt-support
         cd alpine-chroot-install/
-        sudo ./alpine-chroot-install -a x86_64 -d /alpine -p build-base -p snappy -p zstd-dev -p lz4-dev -p zlib-dev -p zlib -p bzip2-dev -p git -p bzip2
-    - name: Building RocksDB for Alpine Linux zlib zlib-dev bzip2 bzip2-dev snappy snappy-dev lz4 lz4-dev
+        sudo ./alpine-chroot-install -a x86_64 -d /alpine -p build-base -p snappy -p zstd-dev -p lz4-dev -p zlib-dev -p git -p bzip2-dev
+    - name: Building RocksDB for Alpine Linux
       run: |
         /alpine/enter-chroot uname -a
         /alpine/enter-chroot -u root "$(git clone https://github.com/facebook/rocksdb.git && \
