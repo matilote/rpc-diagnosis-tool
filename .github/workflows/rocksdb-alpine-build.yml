@@ -21,6 +21,7 @@ jobs:
         cd alpine-chroot-install/
         sudo ./alpine-chroot-install -a x86_64 -d /alpine -p build-base -p snappy -p zstd-dev -p lz4-dev -p zlib-dev -p git -p bzip2-dev
     - name: Installing gflags
+      run: |
         /alpine/enter-chroot -u root "$(cd /tmp && \
         git clone https://github.com/gflags/gflags.git && \
         cd gflags && \
