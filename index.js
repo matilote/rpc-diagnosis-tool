@@ -13,7 +13,7 @@ const _ = require('lodash')
       return value.toLowerCase();
   }
 }];*/
-const textFile = fs.readFileSync("rpc.0.txt").toString('utf-8').split("\n");
+const textFile = fs.readFileSync("rpc.1.txt").toString('utf-8').split("\n");
 
 //removes last line of the file if empty
 if (!textFile[textFile.length -1]) {
