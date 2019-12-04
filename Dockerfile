@@ -1,27 +1,18 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.0.101-alpine3.10 AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0.101-disco-arm64v8 AS build
+RUN git clone --recursive https://github.com/NethermindEth/nethermind
+RUN git submodule update --init src/Dirichlet src/rocksdb-sharp
+RUN dotnet publish src/Nethermind/Nethermind.Runner -c release -o out
 
-RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >>/etc/apk/repositories
-RUN apk upgrade && apk add --update --no-cache build-base linux-headers git cmake bash zlib zlib-dev bzip2 bzip2-dev snappy snappy-dev lz4 lz4-dev zstd zstd-dev libtbb-dev@testing libtbb@testing
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0.1-disco-arm64v8
+RUN apt-get update && apt-get -y install libsnappy-dev libc6-dev libc6 unzip
+WORKDIR /nethermind
+COPY --from=build /out .
 
-RUN cd /tmp && \
-    git clone https://github.com/gflags/gflags.git && \
-    cd gflags && \
-    mkdir build && \
-    cd build && \
-    cmake -DBUILD_SHARED_LIBS=1 -DGFLAGS_INSTALL_SHARED_LIBS=1 .. && \
-    make install && \
-    cd /tmp && \
-    rm -R gflags/
+ENV ASPNETCORE_ENVIRONMENT docker
+ENV NETHERMIND_CONFIG mainnet
+ENV NETHERMIND_DETACHED_MODE true
 
-RUN cd /tmp && \
-    git clone https://github.com/facebook/rocksdb.git && \
-    cd rocksdb && \
-    git checkout v6.4.6 && \
-    make shared_lib && \
-    mkdir -p /usr/local/rocksdb/lib && \
-    mkdir /usr/local/rocksdb/include && \
-    cp librocksdb.so* /usr/local/rocksdb/lib && \
-    cp /usr/local/rocksdb/lib/librocksdb.so* /usr/lib/ && \
-    cp -r include /usr/local/rocksdb/ && \
-    cp -r include/* /usr/include/ && \
-    rm -R /tmp/rocksdb/
+ARG GIT_COMMIT=unspecified
+LABEL git_commit=$GIT_COMMIT
+
+ENTRYPOINT dotnet Nethermind.Runner.dll
