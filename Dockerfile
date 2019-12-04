@@ -1,5 +1,6 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0.101-disco-arm64v8 AS build
 COPY . .
+
 RUN git submodule update --init src/Dirichlet src/rocksdb-sharp
 RUN dotnet publish src/Nethermind/Nethermind.Runner -c release -o out
 
