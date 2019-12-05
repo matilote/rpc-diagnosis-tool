@@ -22,7 +22,7 @@ jobs:
         sudo apt-get install autoconf libtool
         cd secp256k1/
         ./autogen.sh
-        ./configure -enable-module-recovery --enable-experimental --enable-module-ecdh --enable-shared --with-bignum=no
+        ./configure --host=aarch64-linux-gnu --enable-module-recovery --enable-experimental --enable-module-ecdh --enable-shared --with-bignum=no
         make
         strip .libs/libsecp256k1.so
     - uses: actions/upload-artifact@v1
