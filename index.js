@@ -52,7 +52,7 @@ array.forEach((request, index) => {
       if (response.status != '200') {
         const url = response.url.match(/\bhttp?:\/\/\S+/gi);
         url == nethermindClientUrl ? clientName = 'nethermind' : clientName = 'parity'
-        saveToFile('errors', 'internal', `Client name: ${clientName}, Response status code: ${response.status}, Error: ${response.statusText}, Request: ${index + 1}, ${request}`)
+        saveToFile('errors', 'internal', `{"Client name": "${clientName}", "Response status code": "${response.status}", "Error": "${response.statusText}", "Request ${index + 1}": ${request}}`)
       }
       return response.json()}),
     fetch(parityClientUrl, { 
@@ -67,12 +67,12 @@ array.forEach((request, index) => {
       if (!_.isEqual(response[0], response[1])) {
         const nethermindResponse = JSON.stringify(response[0])
         const parityResponse = JSON.stringify(response[1])
-        saveToFile('responses', 'not-equal', `Request: ${request} | Response Nethermind: ${nethermindResponse} | Response Parity: ${parityResponse}`)
+        saveToFile('responses', 'not-equal', `{ "Request": ${request}, "Response Nethermind": ${nethermindResponse}, "Response Parity": ${parityResponse}}`)
       }})
     .catch(error => {
       const url = Object.values(error)[0].match(/\bhttp?:\/\/\S+/gi);
       url == nethermindClientUrl ? clientName = 'nethermind' : clientName = 'parity'
-      saveToFile('errors', 'all', `Client name: ${clientName}, Response error: ${error}, request: ${index + 1} ${request}`)
+      saveToFile('errors', 'all', `{"Client name": "${clientName}", "Response error": "${error}", "request ${index + 1}": ${request}}`)
   })}
 )();
 })
