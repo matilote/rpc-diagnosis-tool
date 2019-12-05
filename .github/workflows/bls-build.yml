@@ -54,6 +54,7 @@ jobs:
       run: |
         cd mcl/
         make lib/libmcl.a
+        cd ..
         cd bls/
         make BLS_ETH=1 lib/libbls384_256.so
         strip /home/runner/work/rpc-diagnosis-tool/rpc-diagnosis-tool/bls/lib/libbls384_256.so
@@ -71,6 +72,7 @@ jobs:
       run: |
         cd mcl/
         make lib/libmcl.a
+        cd ..
         cd bls/
         make BLS_ETH=1 lib/libbls384_256.dylib
     - uses: actions/upload-artifact@v1
