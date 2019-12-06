@@ -30,6 +30,8 @@ jobs:
             git clone --recursive https://github.com/NethermindEth/nethermind
             mv secp256k1/.libs/libsecp256k1.so nethermind/src/Nethermind/Nethermind.Secp256k1/runtimes/linux-x64/native
             cp Dockerfile nethermind/Dockerfile
+            cd nethermind/src/Nethermind/Nethermind.Secp256k1/runtimes/linux-x64/native 
+            ls -al
       - name: Publish to Docker
         uses: elgohr/Publish-Docker-Github-Action@master
         env:
