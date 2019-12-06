@@ -17,7 +17,7 @@ jobs:
           distribution: ubuntu18.04
           run: |
             uname -a
-            apt-get install autoconf libtool git make strip
+            apt-get update && apt-get install autoconf libtool git make docker.io binutils
             git clone https://github.com/bitcoin-core/secp256k1.git
             cd secp256k1/
             ./autogen.sh
@@ -25,7 +25,6 @@ jobs:
             make
             strip .libs/libsecp256k1.so
             cd ..
-            apt-get update && apt-get install docker.io -y
             git clone --recursive https://github.com/NethermindEth/nethermind
             mv secp256k1/.libs/libsecp256k1.so nethermind/src/Nethermind/Nethermind.Secp256k1/runtimes/linux-x64/native/libsecp256k1.so
             cp Dockerfile nethermind/Dockerfile
