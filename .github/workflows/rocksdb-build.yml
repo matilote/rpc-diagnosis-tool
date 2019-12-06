@@ -7,6 +7,8 @@ on:
 jobs:
   rocksb-building:
     name: Building RocksDB
+    env:
+      LATEST_TAG=$(git ls-remote --tags git://github.com/facebook/rocksdb.git | cut -d/ -f3- |  sort -t '/' -k 3 -V | awk '/^[^{]*$/{version=$1}END{print version}')
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -18,7 +20,7 @@ jobs:
     - name: Checkout latest rocksdb version for Windows
       if: matrix.os == 'windows-latest'
       run: |
-        sed -i "29s/ROCKSDBVERSION=v${ROCKSDBVNUM}/ROCKSDBVERSION=$(git ls-remote --tags git://github.com/facebook/rocksdb.git | cut -d/ -f3- |  sort -t '/' -k 3 -V | awk '/^[^{]*$/{version=$1}END{print version}')/" /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
+        sed -i '29s/.*/ROCKSDBVERSION=$LATEST_TAG/' build-rocksdb.sh
         cat /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
       shell: bash
     - name: Building rocksDB for Windows
