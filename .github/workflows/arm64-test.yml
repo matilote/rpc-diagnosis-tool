@@ -17,8 +17,8 @@ jobs:
           distribution: ubuntu18.04
           run: |
             uname -a
+            apt-get install autoconf libtool git make strip
             git clone https://github.com/bitcoin-core/secp256k1.git
-            sudo apt-get install autoconf libtool
             cd secp256k1/
             ./autogen.sh
             ./configure --enable-module-recovery --enable-experimental --enable-module-ecdh --enable-shared --with-bignum=no
