@@ -18,13 +18,12 @@ jobs:
     - name: Building rocksDB for Windows
       if: matrix.os == 'windows-latest'
       run: |
-        "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-        "C:\Program Files\Git\bin\bash.exe"
-        LATESTTAG=$(git ls-remote --tags git://github.com/facebook/rocksdb.git | cut -d/ -f3- |  sort -t '/' -k 3 -V | awk '/^[^{]*$/{version=$1}END{print version}')
-        TAG="${latestTag:1}"
+        call "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+        call "C:\Program Files\Git\bin\bash.exe LATESTTAG=$(git ls-remote --tags git://github.com/facebook/rocksdb.git | cut -d/ -f3- |  sort -t '/' -k 3 -V | awk '/^[^{]*$/{version=$1}END{print version}')"
+        call "C:\Program Files\Git\bin\bash.exe TAG="${latestTag:1}""
         sed -i '28s/ROCKSDBVNUM=`cat rocksdbversion`/ROCKSDBVNUM=$TAG/' /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
         sh /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
-      shell: bash
+      shell: cmd
     - uses: actions/upload-artifact@v1
       name: Uploading Windows artifact
       if: matrix.os == 'windows-latest'
