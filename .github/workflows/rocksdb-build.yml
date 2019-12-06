@@ -18,9 +18,7 @@ jobs:
     - name: Checkout latest rocksdb version for Windows
       if: matrix.os == 'windows-latest'
       run: |
-        LATESTTAG=$(git ls-remote --tags git://github.com/facebook/rocksdb.git | cut -d/ -f3- |  sort -t '/' -k 3 -V | awk '/^[^{]*$/{version=$1}END{print version}')
-        TAG="${latestTag:1}"
-        sed -i '28s/ROCKSDBVNUM=`cat rocksdbversion`/ROCKSDBVNUM=$TAG/' /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
+        sed -i '29s/ROCKSDBVERSION=v${ROCKSDBVNUM}/ROCKSDBVERSION=$(git ls-remote --tags git://github.com/facebook/rocksdb.git | cut -d/ -f3- |  sort -t '/' -k 3 -V | awk '/^[^{]*$/{version=$1}END{print version}')/' /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
         cat /d/a/rpc-diagnosis-tool/rpc-diagnosis-tool/rocksdb-sharp-native/build-rocksdb.sh
       shell: bash
     - name: Building rocksDB for Windows
