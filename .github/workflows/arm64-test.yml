@@ -2,7 +2,7 @@ name: arm64 test
 on: 
   push:
     branches: 
-      - master
+      - test-branch
 
 jobs:
   armv7_job:
