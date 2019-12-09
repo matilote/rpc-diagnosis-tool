@@ -13,8 +13,14 @@ jobs:
     steps:
     - uses: actions/checkout@v1
       with:
+        repository: nethermindeth/nethermind
         submodules: true
         fetch-depth: 1
     - name: Installing Linux packages
       if: matrix.os == 'ubuntu-latest'
-      run: sudo apt-get install libsnappy-dev
+      run: |
+        sudo apt-get install libsnappy-dev libc6 libc6-dev
+        cd nethermind/src/Nethermind
+        dotnet build Nethermind.sln -c Release
+        cd Nethermind.Runner
+
