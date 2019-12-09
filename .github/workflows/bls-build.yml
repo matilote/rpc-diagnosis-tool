@@ -2,7 +2,7 @@ name: BLS Build
 
 on:
   repository_dispatch:
-    types: update
+    types: bls_build
 
 jobs:
   bls-building:
