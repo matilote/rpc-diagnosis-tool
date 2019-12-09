@@ -25,10 +25,10 @@ jobs:
             ./autogen.sh
             ./configure --enable-module-recovery --enable-experimental --enable-module-ecdh --enable-shared --with-bignum=no
             make
-            strip .libs/libsecp256k1.0.0.0.so
+            strip .libs/libsecp256k1.so.0.0.0
             cd ..
             git clone --recursive https://github.com/NethermindEth/nethermind
-            mv secp256k1/.libs/libsecp256k1.0.0.0.so nethermind/src/Nethermind/Nethermind.Secp256k1/runtimes/linux-x64/native/libsecp256k1.so
+            mv secp256k1/.libs/libsecp256k1.so.0.0.0 nethermind/src/Nethermind/Nethermind.Secp256k1/runtimes/linux-x64/native/libsecp256k1.so
             cp Dockerfile nethermind/Dockerfile
             cd nethermind/src/Nethermind/Nethermind.Secp256k1/runtimes/linux-x64/native
             ls -al
