@@ -2,16 +2,14 @@ name: arm64 test
 on: 
   push:
     branches: 
-      - master
+      - test-branch
 
 jobs:
   armv7_job:
     runs-on: ubuntu-18.04
     name: Build on ARM64 
     steps:
-      - uses: actions/checkout@v1.0.0
-        with:
-          lfs: true
+      - uses: actions/checkout@v2-beta
       - uses: uraimo/run-on-arch-action@v1.0.5
         id: runcmd
         with:
@@ -19,19 +17,29 @@ jobs:
           distribution: ubuntu18.04
           run: |
             uname -a
-            apt-get update && apt-get install autoconf libtool git make docker.io binutils -y
+            apt-get update && apt-get install autoconf libtool git make docker.io binutils build-essential libgflags-dev libsnappy-dev libzstd-dev liblz4-dev zlib1g-dev -y
             git clone https://github.com/bitcoin-core/secp256k1.git
             cd secp256k1/
             ./autogen.sh
             ./configure --enable-module-recovery --enable-experimental --enable-module-ecdh --enable-shared --with-bignum=no
             make
             strip .libs/libsecp256k1.so.0.0.0
+            ldd li
             cd ..
             git clone --recursive https://github.com/NethermindEth/nethermind
-            mv secp256k1/.libs/libsecp256k1.so.0.0.0 nethermind/src/Nethermind/Nethermind.Secp256k1/runtimes/linux-x64/native/libsecp256k1.so
+            mkdir nethermind/src/Nethermind/Nethermind.Secp256k1/runtimes/linux-arm64
+            mkdir nethermind/src/Nethermind/Nethermind.Secp256k1/runtimes/linux-arm64/native/
+            mv secp256k1/.libs/libsecp256k1.so.0.0.0 nethermind/src/Nethermind/Nethermind.Secp256k1/runtimes/linux-arm64/native/libsecp256k1.so
             cp Dockerfile nethermind/Dockerfile
-            cd nethermind/src/Nethermind/Nethermind.Secp256k1/runtimes/linux-x64/native
-            ls -al
+            #git clone https://github.com/facebook/rocksdb.git
+            #cd rocksdb/
+            #git fetch --tags
+            #latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
+            #git checkout $latestTag
+            #TAG="${latestTag:1}"
+            #make shared_lib
+            #strip librocksdb.so.${TAG}
+            #mv librocksdb.so.${TAG} nethermind/src/Nethermind/Nethermind.Secp256k1/runtimes/linux-arm64/native/librocksdb.so
       - name: Publish to Docker
         uses: elgohr/Publish-Docker-Github-Action@master
         env:
