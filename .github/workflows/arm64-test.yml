@@ -9,9 +9,7 @@ jobs:
     runs-on: ubuntu-18.04
     name: Build on ARM64 
     steps:
-      - uses: actions/checkout@v1.0.0
-        with:
-          lfs: true
+      - uses: actions/checkout@v2-beta
       - uses: uraimo/run-on-arch-action@v1.0.5
         id: runcmd
         with:
