@@ -19,4 +19,7 @@ LABEL git_commit=$GIT_COMMIT
 COPY librocksdb.so /nethermind/librocksdb.so
 COPY libsecp256k1.so /nethermind/runtimes/linux-x64/native/libsecp256k1.so
 
+RUN ln -s /lib/aarch64-linux-gnu/libzstd.so.1 /lib/aarch64-linux-gnu/libzstd.so.0
+RUN ln -s /lib/aarch64-linux-gnu/libgflags.so /lib/aarch64-linux-gnu/libgflags.so.2
+
 ENTRYPOINT dotnet Nethermind.Runner.dll
