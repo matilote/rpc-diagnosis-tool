@@ -1,8 +1,6 @@
 name: BLS Build
 
-on:
-  repository_dispatch:
-    types: bls_build
+on: [push]
 
 jobs:
   bls-building:
