@@ -21,7 +21,6 @@ jobs:
             [1]: https://github.com/peter-evans/create-pull-request
           title: '[Example] Add report file'
           labels: report, automated pr
-          milestone: 1
           author-name: github-actions[bot]
           author-email: 41898282+github-actions[bot]@users.noreply.github.com
           committer-name: GitHub
