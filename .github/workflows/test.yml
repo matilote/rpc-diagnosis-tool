@@ -1,6 +1,4 @@
-on:
-  repository_dispatch:
-    types: [create-pull-request]
+on: push
     
 name: Create Pull Request
 jobs:
