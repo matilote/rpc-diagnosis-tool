@@ -8,7 +8,7 @@ jobs:
   publish-to-docker:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v2
     - name: Creating PR
       id: cpr
       uses: peter-evans/create-pull-request@v1
@@ -31,4 +31,15 @@ jobs:
       run: |
         echo "Pull Request Number - ${{ env.PULL_REQUEST_NUMBER }}"
         echo "Pull Request Number - ${{ steps.cpr.outputs.pr_number }}"
-
+    - name: pull-request
+      uses: repo-sync/pull-request@v2
+      with:
+        source_branch: ""          
+        destination_branch: "master"       
+        pr_title: "Pulling ${{ github.ref }} into master"
+        pr_body: |
+          ":crown: *An automated PR* 
+          New BLS library has been built.
+          - Please upload the new library file to it's destination folder in Nethermind repo"
+        pr_label: "documentation"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
