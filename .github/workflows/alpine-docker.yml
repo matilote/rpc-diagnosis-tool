@@ -6,6 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
+    - name: run
+      run: git pull origin master
     - name: pull-request
       uses: repo-sync/pull-request@v2
       with:    
