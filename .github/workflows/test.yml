@@ -13,8 +13,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Add report file
-          author-email: peter-evans@users.noreply.github.com
-          author-name: Peter Evans
           body: |
             New report
             - Contains *today's* date
@@ -23,8 +21,10 @@ jobs:
             [1]: https://github.com/peter-evans/create-pull-request
           title: '[Example] Add report file'
           labels: report, automated pr
-          assignees: peter-evans
-          reviewers: peter-evans
           milestone: 1
+          author-name: github-actions[bot]
+          author-email: 41898282+github-actions[bot]@users.noreply.github.com
+          committer-name: GitHub
+          committer-email: noreply@github.com
           branch: example-patches
           branch-suffix: short-commit-hash
