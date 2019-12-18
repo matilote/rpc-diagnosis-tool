@@ -9,10 +9,4 @@ jobs:
     - name: pull-request
       uses: repo-sync/pull-request@v2
       with:    
-        pr_title: "docs"
-        pr_body: |
-          ":crown: *An automated PR* 
-          New BLS library has been built.
-          - Please upload the new library file to it's destination folder in Nethermind repo"
-        pr_label: "documentation"
         github_token: ${{ secrets.GITHUB_TOKEN }}
