@@ -1,8 +1,5 @@
 name: Publish NDM-web to Docker Registry
-on: 
-  push:
-    branches: 
-      - master
+on: push
       
 jobs:
   publish-to-docker:
