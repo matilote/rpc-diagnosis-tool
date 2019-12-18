@@ -1,4 +1,7 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0-stretch-arm64v8 AS build
+
+ENV DOTNET_RUNTIME_ID debian-arm64
+
 RUN git clone https://github.com/NethermindEth/nethermind.git nethermind/
 RUN cd nethermind/ && git submodule update --init src/Dirichlet src/rocksdb-sharp
 RUN cd nethermind/ && dotnet publish src/Nethermind/Nethermind.Runner -c release -o out
@@ -8,7 +11,6 @@ RUN apt-get update && apt-get -y install libsnappy-dev libc6-dev libc6 libzstd1 
 WORKDIR /nethermind
 COPY --from=build /nethermind/out .
 
-ENV DOTNET_RUNTIME_ID debian-arm64
 ENV ASPNETCORE_ENVIRONMENT docker
 ENV NETHERMIND_CONFIG mainnet
 ENV NETHERMIND_DETACHED_MODE true
