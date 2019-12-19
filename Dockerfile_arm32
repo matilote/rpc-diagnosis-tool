@@ -1,0 +1,33 @@
+ 
+##################################################
+FROM arm32v7/alpine as rocksdb
+WORKDIR /source
+
+RUN apk upgrade && apk add git build-base linux-headers bash perl
+RUN git clone --branch v6.4.6 https://github.com/facebook/rocksdb .
+RUN PORTABLE=1 make shared_lib
+RUN strip librocksdb.so
+
+##################################################
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-bionic-arm32v7 AS build
+
+RUN apt-get update && apt-get -y install libsnappy-dev libc6-dev libc6 libzstd1 libgflags-dev libssl1.0.0
+RUN git clone https://github.com/NethermindEth/nethermind source/
+RUN cd source/ && git checkout 031d86f4901244a004a4c7ed9e7530521f4deebc && git submodule update --init src/Dirichlet src/rocksdb-sharp
+RUN cd source/ && dotnet publish /source/src/Nethermind/Nethermind.Runner -c Release -o out
+
+##################################################
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-bionic-arm32v7
+
+
+ENV ASPNETCORE_ENVIRONMENT docker
+ENV NETHERMIND_CONFIG mainnet
+ENV NETHERMIND_DETACHED_MODE true
+
+ARG GIT_COMMIT=unspecified
+LABEL git_commit=$GIT_COMMIT
+
+COPY --from=build /source/out .
+COPY --from=rocksdb /source/librocksdb.so /nethermind/librocksdb.so
+
+ENTRYPOINT ["dotnet", "Nethermind.Runner.dll"]
