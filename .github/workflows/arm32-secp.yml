@@ -18,7 +18,7 @@ jobs:
         run: |
           uname -a
           sudo apt-get update
-          sudo apt-get install git automake libtool -y
+          sudo apt-get install git automake autoconf make libtool -y
           git clone https://github.com/bitcoin-core/secp256k1.git
           cd secp256k1/
           ./autogen.sh --disable-dependency-tracking
