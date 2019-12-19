@@ -17,7 +17,8 @@ jobs:
         distribution: buster
         run: |
           uname -a
-          apt-get update && apt-get install git autoconf libtool -y
+          sudo apt-get update
+          sudo apt-get install git autoconf libtool -y
           git clone https://github.com/NethermindEth/secp256k1
           cd secp256k1/
           ./autogen.sh
