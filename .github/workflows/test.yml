@@ -25,5 +25,5 @@ jobs:
           author-email: 41898282+github-actions[bot]@users.noreply.github.com
           committer-name: GitHub
           committer-email: noreply@github.com
-          branch: example-patches
+          branch: docs-update
           branch-suffix: short-commit-hash
