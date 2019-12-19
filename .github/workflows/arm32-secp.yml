@@ -19,7 +19,7 @@ jobs:
           uname -a
           sudo apt-get update
           sudo apt-get install git automake libtool -y
-          git clone https://github.com/NethermindEth/secp256k1
+          git clone https://github.com/bitcoin-core/secp256k1.git
           cd secp256k1/
           ./autogen.sh
           ./configure --enable-module-recovery --enable-experimental --enable-module-ecdh --enable-shared --with-bignum=no
