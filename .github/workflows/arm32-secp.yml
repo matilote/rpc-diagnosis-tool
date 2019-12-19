@@ -13,14 +13,21 @@ jobs:
     - uses: uraimo/run-on-arch-action@v1.0.5
       id: runcmd
       with:
-        architecture: aarch64
-        distribution: ubuntu18.04
+        architecture: armv6
+        distribution: buster
         run: |
           uname -a
-          apt-get update && add-apt-repository ppa:ubuntu-toolchain-r/test && apt-get install gcc-multilib g++-multilib autoconf libtool -y
-          git clone https://github.com/bitcoin-core/secp256k1.git
+          sudo apt-get update
+          sudo apt-get install git automake make libtool -y
+          git clone https://github.com/NethermindEth/secp256k1
           cd secp256k1/
-          ./autogen.sh
-          ./configure --host=i686-linux-gnu "CFLAGS=-m32" "CXXFLAGS=-m32" "LDFLAGS=-m32" --enable-module-recovery --enable-experimental --enable-module-ecdh --enable-shared --with-bignum=no
+          ./autogen.sh --disable-dependency-tracking
+          ./configure --enable-module-recovery --enable-experimental --enable-module-ecdh --enable-shared --with-bignum=no
           make
           strip .libs/libsecp256k1.so
+          pwd
+    - uses: actions/upload-artifact@v1
+      name: Uploading Artifact
+      with:
+        name: artifact_secp256k1
+        path: secp256k1/.libs/libsecp256k1.so
