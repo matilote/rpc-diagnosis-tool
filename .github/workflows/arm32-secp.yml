@@ -17,8 +17,8 @@ jobs:
         distribution: ubuntu18.04
         run: |
           uname -a
-          sudo apt-get update
-          sudo apt-get install gcc-multilib g++-multilib autoconf libtool -y
+          apt-get update
+          apt-get install gcc-multilib g++-multilib autoconf libtool -y
           git clone https://github.com/bitcoin-core/secp256k1.git
           cd secp256k1/
           ./autogen.sh
