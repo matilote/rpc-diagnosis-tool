@@ -21,7 +21,7 @@ jobs:
           sudo apt-get install git automake libtool -y
           git clone https://github.com/bitcoin-core/secp256k1.git
           cd secp256k1/
-          ./autogen.sh
+          ./autogen.sh --disable-dependency-tracking
           ./configure --enable-module-recovery --enable-experimental --enable-module-ecdh --enable-shared --with-bignum=no
           make
           strip .libs/libsecp256k1.so
