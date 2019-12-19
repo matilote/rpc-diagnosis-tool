@@ -13,8 +13,8 @@ jobs:
     - uses: uraimo/run-on-arch-action@v1.0.5
       id: runcmd
       with:
-        architecture: armv7
-        distribution: stretch
+        architecture: s390x
+        distribution: ubuntu18.04
         run: |
           uname -a
           apt-get update && apt-get install docker.io -y
