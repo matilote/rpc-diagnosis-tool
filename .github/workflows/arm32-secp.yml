@@ -17,6 +17,7 @@ jobs:
         distribution: buster
         run: |
           uname -a
+          git clone https://github.com/NethermindEth/secp256k1
           apt-get update && apt-get install docker.io -y
           apt-get install autoconf libtool
           cd secp256k1/
