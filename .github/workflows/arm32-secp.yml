@@ -18,7 +18,7 @@ jobs:
         run: |
           uname -a
           sudo apt-get update
-          sudo apt-get install git autoconf libtool -y
+          sudo apt-get install git automake libtool -y
           git clone https://github.com/NethermindEth/secp256k1
           cd secp256k1/
           ./autogen.sh
