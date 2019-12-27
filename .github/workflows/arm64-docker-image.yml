@@ -13,8 +13,6 @@ jobs:
     name: Build on ARM64
     steps:
     - uses: actions/checkout@v2
-    - name: Unshallow fetching
-      run: git fetch --unshallow
     - uses: uraimo/run-on-arch-action@v1.0.5
       id: runcmd
       with:
