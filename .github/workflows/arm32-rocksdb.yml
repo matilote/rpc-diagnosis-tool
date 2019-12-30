@@ -13,7 +13,7 @@ jobs:
     - uses: uraimo/run-on-arch-action@v1.0.5
       id: runcmd
       with:
-        architecture: armv6
+        architecture: armv7
         distribution: buster
         run: |
           sudo apt-get update && sudo apt-get install build-essential git binutils make libsnappy-dev libzstd-dev liblz4-dev zlib1g-dev
@@ -26,7 +26,6 @@ jobs:
           PORTABLE=1 make shared_lib
           strip librocksdb.so.${TAG}
           mv librocksdb.so.${TAG} librocksdb.so
-          pwd
     - uses: actions/upload-artifact@v1
       name: Uploading Artifact
       with: 
