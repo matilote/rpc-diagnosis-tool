@@ -11,10 +11,6 @@ RUN apt-get update && apt-get -y install libsnappy-dev libc6-dev libc6 libzstd1 
 WORKDIR /nethermind
 COPY --from=build /nethermind/out .
 
-ENV ASPNETCORE_ENVIRONMENT docker
-ENV NETHERMIND_CONFIG mainnet
-ENV NETHERMIND_DETACHED_MODE true
-
 ARG GIT_COMMIT=unspecified
 LABEL git_commit=$GIT_COMMIT
 
@@ -24,4 +20,4 @@ RUN ln -s /usr/lib/aarch64-linux-gnu/libgflags.so /usr/lib/aarch64-linux-gnu/lib
 COPY --from=build /nethermind/arm/lib/librocksdb.so /nethermind/librocksdb.so
 COPY --from=build /nethermind/arm/lib/libsecp256k1.so /nethermind/runtimes/linux-x64/native/libsecp256k1.so
 
-ENTRYPOINT ["dotnet", "Nethermind.Runner.dll"]
+ENTRYPOINT ["./Nethermind.Runner"]
