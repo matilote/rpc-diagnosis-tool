@@ -11,7 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-      ref: master
+      with:
+        ref: my-branch
     - name: Unshallow fetching
       run: git fetch --prune --unshallow
 #    - name: Updating submodules
