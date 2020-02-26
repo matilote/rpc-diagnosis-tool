@@ -22,7 +22,7 @@ jobs:
       if: matrix.os == 'macOS-10.13'
       run: brew install gmp && brew install snappy && brew install lz4 && brew install zstd
     - name: Run Nethermind
-    - run: |
+      run: |
         cd nethermind/src/Nethermind
         dotnet build Nethermind.sln -c Release
         cd Nethermind.Runner
