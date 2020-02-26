@@ -41,7 +41,7 @@ jobs:
         cd rocksdb/
         git fetch --tags
         latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
-        latestTag=6.4.6
+        latestTag=v6.4.6
         git checkout $latestTag
         TAG="${latestTag:1}"
         PORTABLE=1 make shared_lib
@@ -72,10 +72,9 @@ jobs:
         cd rocksdb/
         git fetch --tags
         latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
-        latestTag=6.4.6
+        latestTag=v6.4.6
         git checkout $latestTag
         TAG="${latestTag:1}"
-        TAG=6.4.6
         sed -i.bak '14s/CXXFLAGS += ${EXTRA_CXXFLAGS}/CXXFLAGS += -w/' Makefile
         PORTABLE=1 make shared_lib
         mv librocksdb.${TAG}.dylib librocksdb.dylib
