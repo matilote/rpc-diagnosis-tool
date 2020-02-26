@@ -1,0 +1,23 @@
+language: csharp
+mono: none
+sudo: required
+os: osx
+dotnet: 3.0.100
+addons:
+  artifacts:
+    working_dir: rocksdb/librocksdb.dylib
+
+jobs:
+  include:
+    # - script: dotnet test -c Release src/Nethermind/Ethereum.VM.Test
+    #  name: "Ethereum.VM.Test"
+    - stage: Nethermind Tests    
+      script: 
+      - brew install gmp && brew install snappy && brew install lz4 && brew install zstd
+      - git clone https://github.com/NethermindEth/nethermind --recursive
+      - cd nethermind/src/Nethermind
+      - dotnet build Nethermind.sln -c Release
+      - rm -f /Users/travis/build/matilote/rpc-diagnosis-tool/nethermind/src/Nethermind/Nethermind.Runner/bin/Release/netcoreapp3.0/runtimes/osx-x64/native/librocksdb.dylib
+      - cp /Users/travis/build/matilote/rpc-diagnosis-tool/librocksdb.dylib /Users/travis/build/matilote/rpc-diagnosis-tool/nethermind/src/Nethermind/Nethermind.Runner/bin/Release/netcoreapp3.0/runtimes/osx-x64/native/librocksdb.dylib
+      - cd Nethermind.Runner
+      - dotnet run -c Release --no-build -- --config mainnet
