@@ -2,7 +2,7 @@ language: csharp
 mono: none
 sudo: required
 os: osx
-dotnet: 3.1
+dotnet: 3.0.100
 env:
 
 jobs:
@@ -12,6 +12,8 @@ jobs:
     - stage: Nethermind Tests    
       script: 
       - brew install gmp && brew install snappy && brew install lz4 && brew install zstd
+      - brew update
+      - brew upgrade
       - git clone https://github.com/NethermindEth/nethermind --recursive
       - cd nethermind/src/Nethermind
       - dotnet build Nethermind.sln -c Release
