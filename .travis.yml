@@ -3,9 +3,6 @@ mono: none
 sudo: required
 os: osx
 dotnet: 3.0.100
-addons:
-  artifacts:
-    working_dir: rocksdb/librocksdb.dylib
 
 jobs:
   include:
