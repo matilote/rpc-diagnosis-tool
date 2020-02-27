@@ -40,6 +40,7 @@ jobs:
       - brew install zstd
       - brew install gmp
       - brew install snappy
+      - brew install jemalloc
       - git clone https://github.com/NethermindEth/nethermind --recursive
       - cd nethermind/src/Nethermind
       - dotnet build Nethermind.sln -c Release
