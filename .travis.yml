@@ -10,15 +10,38 @@ jobs:
     #  name: "Ethereum.VM.Test"
     - stage: Nethermind Tests    
       script: 
+      - git clone git://github.com/Cyan4973/lz4.git
+      - brew install gcc
       - brew install snappy
-      - brew install lz4
       - brew install zstd
-      - brew install gmp
       - brew install jemalloc
-      - git clone https://github.com/NethermindEth/nethermind --recursive
-      - cd nethermind/src/Nethermind
-      - dotnet build Nethermind.sln -c Release
-      - rm -f /Users/travis/build/matilote/rpc-diagnosis-tool/nethermind/src/Nethermind/Nethermind.Runner/bin/Release/netcoreapp3.0/runtimes/osx-x64/native/librocksdb.dylib
-      - cp /Users/travis/build/matilote/rpc-diagnosis-tool/librocksdb.dylib /Users/travis/build/matilote/rpc-diagnosis-tool/nethermind/src/Nethermind/Nethermind.Runner/bin/Release/netcoreapp3.0/runtimes/osx-x64/native/librocksdb.dylib
-      - cd Nethermind.Runner
-      - dotnet run -c Release --no-build -- --config mainnet
+      - make -C lz4/lib
+      - cp -L lz4/lib/liblz4.dylib ./liblz4_64.dylib
+      - make -C lz4/lib clean
+      - CFLAGS="-arch x86_64" CXXFLAGS="-arch x86_64" LDFLAGS="-arch x86_64" make -C lz4/lib
+      - lipo -create ./liblz4_64.dylib -output ./liblz4.dylib
+      - cp -v ./liblz4.dylib lz4/lib/$(readlink lz4/lib/liblz4.dylib)
+      - touch lz4/lib/liblz4
+      - make -C lz4/lib install
+      - git clone https://github.com/facebook/rocksdb.git
+      - cd rocksdb/
+      - git fetch --tags
+      - latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
+      - latestTag=v5.15.10
+      - git checkout $latestTag
+      - TAG="${latestTag:1}"
+      - sed -i.bak '14s/CXXFLAGS += ${EXTRA_CXXFLAGS}/CXXFLAGS += -w/' Makefile
+      - CFLAGS="-g -O2 -mmacosx-version-min=10.13 -isysroot /Developer/SDKs/MacOSX10.13.sdk -arch x86_64" PORTABLE=1 make shared_lib
+      - mv librocksdb.${TAG}.dylib librocksdb.dylib
+      # - brew install snappy
+      # - brew install lz4
+      # - brew install zstd
+      # - brew install gmp
+      # - brew install jemalloc
+      # - git clone https://github.com/NethermindEth/nethermind --recursive
+      # - cd nethermind/src/Nethermind
+      # - dotnet build Nethermind.sln -c Release
+      # - rm -f /Users/travis/build/matilote/rpc-diagnosis-tool/nethermind/src/Nethermind/Nethermind.Runner/bin/Release/netcoreapp3.0/runtimes/osx-x64/native/librocksdb.dylib
+      # - cp /Users/travis/build/matilote/rpc-diagnosis-tool/librocksdb.dylib /Users/travis/build/matilote/rpc-diagnosis-tool/nethermind/src/Nethermind/Nethermind.Runner/bin/Release/netcoreapp3.0/runtimes/osx-x64/native/librocksdb.dylib
+      # - cd Nethermind.Runner
+      # - dotnet run -c Release --no-build -- --config mainnet
