@@ -4,6 +4,11 @@ sudo: required
 os: osx
 dotnet: 3.0.100
 
+addons:
+  artifacts:
+    # ⋮
+    working_dir: rocksdb/librocksdb.dylib
+
 jobs:
   include:
     # - script: dotnet test -c Release src/Nethermind/Ethereum.VM.Test
@@ -31,7 +36,7 @@ jobs:
       - git checkout $latestTag
       - TAG="${latestTag:1}"
       - sed -i.bak '14s/CXXFLAGS += ${EXTRA_CXXFLAGS}/CXXFLAGS += -w/' Makefile
-      - CFLAGS="-g -O2 -mmacosx-version-min=10.13 -isysroot /Developer/SDKs/MacOSX10.13.sdk -arch x86_64" PORTABLE=1 make shared_lib
+      - PORTABLE=1 make shared_lib
       - mv librocksdb.${TAG}.dylib librocksdb.dylib
       # - brew install snappy
       # - brew install lz4
