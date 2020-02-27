@@ -8,8 +8,8 @@ const program = require('commander');
 
 // Clients JSON RPC endpoints
 const clients = {
-  nethermind: "http://134.209.177.40:8545/",
-  parity: "http://134.209.177.40:8555/"
+  nethermind: "http://localhost:8545/",
+  parity: "http://localhost:8555/"
 }
 
 // Array for JSON RPC requests storage
