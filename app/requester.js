@@ -3,21 +3,32 @@ const fetch = require('node-fetch')
 const _ = require('lodash')
 const { saveToFile } = require('../utils/file-helper')
 require('log-timestamp')('REQUESTER.JS')
+const program = require('commander');
+
 
 // Clients JSON RPC endpoints
 const clients = {
-  nethermind: "http://localhost:8545/",
-  parity: "http://localhost:8555/"
+  nethermind: "http://134.209.177.40:8545/",
+  parity: "http://134.209.177.40:8555/"
 }
 
 // Array for JSON RPC requests storage
 const rpcArray = [];
 
 // Array of methods which will be ignored when sending to clients
-const methods = [...process.argv[2].split(',')]
+process.argv[2] != undefined ? methods = [...process.argv[2].split(',')] : methods = []
+
+commaSeparatedList = (value, dummyPrevious) => value.split(',');
+
+program
+  .option('-m, --methods <items>', 'comma separated list of JSON RPC methods that will be ignored in analysis', commaSeparatedList)
+;
+
+program.parse(process.argv);
+if (program.methods !== undefined) console.log(program.methods);
 
 // Reads JSON RPC file containing requests which are to be sent to clients
-const textFile = fs.readFileSync("../rpc/rpc.1.txt").toString('utf-8').split("\n");
+const textFile = fs.readFileSync("./trace-requests.txt").toString('utf-8').split("\n");
 
 // Removes last line of the file if empty
 if (!textFile[textFile.length -1]) {
@@ -32,9 +43,13 @@ textFile.forEach((line) => {
 
 // Removes requests with specified methods
 const removeNotWantedMethods = (methods) => {
-  console.log(`All requests: ${methods} will be skipped in this analysis.`)
-  return rpcArray.filter((el) => !methods.includes(JSON.parse(el).method) ? 
-    JSON.parse(el).method : undefined)
+  if(methods.length == 0) {
+    console.log(`No methods will be skipped.`)
+  } else {
+    console.log(`All requests: ${methods} will be skipped in this analysis.`)
+  }
+    return rpcArray.filter((el) => !methods.includes(JSON.parse(el).method) ? 
+      JSON.parse(el).method : undefined)
 } 
 
 // Creates array without unnecessary methods
@@ -68,6 +83,7 @@ array.forEach((request, index) => {
     body: request }).then((response) => response.json())
     ])
     .then(response => {
+      console.log(response)
       if (!_.isEqual(response[0], response[1])) {
         const nethermindResponse = JSON.stringify(response[0])
         const parityResponse = JSON.stringify(response[1])
@@ -82,3 +98,4 @@ array.forEach((request, index) => {
 })
 
 console.log(`Files have been successfully created!`)
+
