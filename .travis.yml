@@ -45,13 +45,13 @@ jobs:
       - brew install lz4
       - brew install zstd
       - brew install gmp
-      - git clone https://github.com/NethermindEth/nethermind --recursive
-      - cd nethermind/src/Nethermind
-      - dotnet build Nethermind.sln -c Release
-      - rm -f /Users/travis/build/matilote/rpc-diagnosis-tool/nethermind/src/Nethermind/Nethermind.Runner/bin/Release/netcoreapp3.0/runtimes/osx-x64/native/librocksdb.dylib
-      - cp /Users/travis/build/matilote/rpc-diagnosis-tool/rocksdb/librocksdb.dylib /Users/travis/build/matilote/rpc-diagnosis-tool/nethermind/src/Nethermind/Nethermind.Runner/bin/Release/netcoreapp3.0/runtimes/osx-x64/native/
-      - cd Nethermind.Runner
-      - dotnet run -c Release --no-build -- --config mainnet
+      # - git clone https://github.com/NethermindEth/nethermind --recursive
+      # - cd nethermind/src/Nethermind
+      # - dotnet build Nethermind.sln -c Release
+      # - rm -f /Users/travis/build/matilote/rpc-diagnosis-tool/nethermind/src/Nethermind/Nethermind.Runner/bin/Release/netcoreapp3.0/runtimes/osx-x64/native/librocksdb.dylib
+      # - cp /Users/travis/build/matilote/rpc-diagnosis-tool/rocksdb/librocksdb.dylib /Users/travis/build/matilote/rpc-diagnosis-tool/nethermind/src/Nethermind/Nethermind.Runner/bin/Release/netcoreapp3.0/runtimes/osx-x64/native/
+      # - cd Nethermind.Runner
+      # - dotnet run -c Release --no-build -- --config mainnet
 deploy:
   provider: releases
   api_key:
