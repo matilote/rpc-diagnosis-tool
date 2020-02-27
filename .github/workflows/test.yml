@@ -77,7 +77,7 @@ jobs:
         git checkout $latestTag
         TAG="${latestTag:1}"
         sed -i.bak '14s/CXXFLAGS += ${EXTRA_CXXFLAGS}/CXXFLAGS += -w/' Makefile
-        PORTABLE=1 make shared_lib
+        CFLAGS="-g -O2 -mmacosx-version-min=10.13 -isysroot /Developer/SDKs/MacOSX10.13.sdk -arch x86_64" PORTABLE=1 make shared_lib
         mv librocksdb.${TAG}.dylib librocksdb.dylib
     - uses: actions/upload-artifact@v1
       name: Uploading Darwin artifact
