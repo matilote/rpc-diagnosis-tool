@@ -52,11 +52,11 @@ jobs:
       - cp /Users/travis/build/matilote/rpc-diagnosis-tool/rocksdb/librocksdb.dylib /Users/travis/build/matilote/rpc-diagnosis-tool/nethermind/src/Nethermind/Nethermind.Runner/bin/Release/netcoreapp3.0/runtimes/osx-x64/native/
       - cd Nethermind.Runner
       - dotnet run -c Release --no-build -- --config mainnet
-      deploy:
-        provider: releases
-        api_key:
-          secure: "Vm3zdwgKJeia6bGemRMHdAFqICWlZZWUyFLX00k8HvEbOvSa6YWEATXQ+uMC6oQ3C4xqmCVEFHGtqFbYrrKHIzoaqFfKD7r3DXb2UkCy9yN+tFEu4KCs9Kx2uDAkiHOYYyq21Wo5r7U8S0nyqKa27VH1WWCzKPfvHTRFBRLUaJzAXQ1ZOr9ptb0J7TvjIjo4r+SBLIF0zmOStAd0VkeVOHEU6TlCbmCW+TSqsrQrb5AK8YCraRdnpk52EJfS59SCPmpevGyaptwnHopkj5nA89sC2s/UgQgCmLp1Gs/+lljUihxKC7krwyt6WWDDZaN8X3Faylwb7x1DQ48ivdg9SgHkYyHE40RYaQ92Jtz4u934+ZhEkkpylPSVfl3zX8lMU4HroGvcn6JATy9gXUao/hihsb9BwOQYiQrAc4tLfqS3Zg8R55G1WrTPlgyt0JxOMBoKl1jESSng0w+J2Sg+/n3WfCX7i/zFSCMdOMfY42+y9egGb0JPxncn7tQ5epo/D6VkpS+NEAoBGNRIsZjXzcyat1+OjM2OMkgRx7gYmnXe6LFQqZfxnZCOImekoVPAmSRIH8DroxkhypHHnoh0xUUm4SdJ1XWp6mTqpaauCMKnNsUYPNlXnYcNyp4Rh8axUtlOJFxV4vwlgDr7l3szQJxpWfYtK0x7O5uHljZ7Znk="
-        file: 'librocksdb.dylib'
-        skip_cleanup: true
-        on:
-          tags: true
+deploy:
+  provider: releases
+  api_key:
+    secure: "Vm3zdwgKJeia6bGemRMHdAFqICWlZZWUyFLX00k8HvEbOvSa6YWEATXQ+uMC6oQ3C4xqmCVEFHGtqFbYrrKHIzoaqFfKD7r3DXb2UkCy9yN+tFEu4KCs9Kx2uDAkiHOYYyq21Wo5r7U8S0nyqKa27VH1WWCzKPfvHTRFBRLUaJzAXQ1ZOr9ptb0J7TvjIjo4r+SBLIF0zmOStAd0VkeVOHEU6TlCbmCW+TSqsrQrb5AK8YCraRdnpk52EJfS59SCPmpevGyaptwnHopkj5nA89sC2s/UgQgCmLp1Gs/+lljUihxKC7krwyt6WWDDZaN8X3Faylwb7x1DQ48ivdg9SgHkYyHE40RYaQ92Jtz4u934+ZhEkkpylPSVfl3zX8lMU4HroGvcn6JATy9gXUao/hihsb9BwOQYiQrAc4tLfqS3Zg8R55G1WrTPlgyt0JxOMBoKl1jESSng0w+J2Sg+/n3WfCX7i/zFSCMdOMfY42+y9egGb0JPxncn7tQ5epo/D6VkpS+NEAoBGNRIsZjXzcyat1+OjM2OMkgRx7gYmnXe6LFQqZfxnZCOImekoVPAmSRIH8DroxkhypHHnoh0xUUm4SdJ1XWp6mTqpaauCMKnNsUYPNlXnYcNyp4Rh8axUtlOJFxV4vwlgDr7l3szQJxpWfYtK0x7O5uHljZ7Znk="
+  file: 'rocksdb/librocksdb.dylib'
+  skip_cleanup: true
+  on:
+    tags: true
