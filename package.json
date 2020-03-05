@@ -9,24 +9,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.19.0",
     "child_process": "^1.0.2",
-    "express": "^4.17.1",
+    "commander": "^4.1.1",
     "fs": "0.0.1-security",
     "http-proxy-middleware": "^0.20.0",
     "https": "^1.0.0",
     "inquirer-search-checkbox": "^1.0.0",
-    "jayson": "^3.1.1",
-    "loadash": "^1.0.0",
     "lodash": "^4.17.15",
     "log-timestamp": "^0.3.0",
     "neek": "^1.1.2",
     "node-fetch": "^2.6.0",
-    "node-json-rpc": "0.0.1",
-    "request": "^2.88.0",
     "requests": "^0.3.0",
-    "simple-jsonrpc-js": "^1.0.1",
-    "web3": "^1.2.2",
-    "ws": "^7.2.0"
+    "uuid": "^7.0.1",
+    "web3": "^1.2.6"
   }
 }

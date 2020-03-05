@@ -1,5 +1,5 @@
 const fs = require("fs")
-const uuidv4 = require('uuid/v4');
+const uuidv4 = require('uuid').v4;
 const _ = require('lodash')
 const { createFile, createDirectory } = require('../utils/file-helper')
 require('log-timestamp')('COMPARER.JS')

@@ -38,7 +38,9 @@ inquirer
     ])
 	.then(function(answers) {
         console.log(JSON.stringify(answers, null, "  "));
-        startProcess(applications.requester, `${answers.methods}`).then(startProcess(applications.comparer))
+        startProcess(applications.requester, `${answers.methods}`)
+        .then(startProcess(applications.duplicateRemover))
+        .then(startProcess(applications.comparer))
 	})
     .catch(e => console.log(e));
 

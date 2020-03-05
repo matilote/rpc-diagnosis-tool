@@ -56,7 +56,6 @@ jobs:
     - name: Building rocksDB for OSX
       if: matrix.os == 'macOS-latest'
       run: |
-        ls -n /Applications/ | grep Xcode*
         git clone git://github.com/Cyan4973/lz4.git
         brew install gcc
         brew install snappy
