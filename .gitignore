@@ -3,3 +3,4 @@ package-lock.json
 /app/requests/
 /app/responses/
 /app/errors/
+api_key.json
