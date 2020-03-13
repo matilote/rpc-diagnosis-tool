@@ -13,8 +13,10 @@ jobs:
         sudo apt update
         sudo apt-get install software-properties-common
         sudo apt install python3.7
+        sudo apt-get install python3-pip
     - name: Updating config files
       run: |
+        pip3 install emoji
         python3 scripts/syncSettings.py
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v2.4.4
