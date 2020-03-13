@@ -14,7 +14,8 @@ jobs:
         sudo apt-get install software-properties-common
         sudo apt install python3.7
         sudo apt-get install python3-pip
-        pip3 install setuptools emoji
+        pip3 install setuptools
+        pip3 install emoji
     - name: Updating config files
       run: |
         python3 scripts/syncSettings.py
