@@ -5,8 +5,7 @@ import sys
 
 configsPath = './configs'
 
-with open('api_key.json', mode='r') as key_file:
-    key = json.loads(key_file.read())['key']
+key = sys.argv[1]
 
 print(emoji.emojize("Fast Sync configuration settings initialization     :white_check_mark: ", use_aliases=True))
 print(sys.path[0])
