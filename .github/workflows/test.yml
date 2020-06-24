@@ -39,6 +39,8 @@ jobs:
     - name: Stripping Linux file
       if: matrix.os == 'ubuntu-latest'
       run: |
+        cd eip2537rustwrapper/libs
+        ls
         strip /home/runner/work/nethermind/nethermind/eip2537rustwrapper/libs/libeth_2537.so
     - uses: actions/upload-artifact@v2
       name: Uploading Linux artifact
