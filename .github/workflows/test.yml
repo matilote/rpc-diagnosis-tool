@@ -21,8 +21,7 @@ jobs:
       run: |
         ls
         pwd
-        cd D:\a\nethermind\nethermind\eip2537rustwrapper
-        cd builder
+        cd eip2537rustwrapper/builder
         ./build-eip196.sh
         ./build-eip2537.sh
       shell: bash
