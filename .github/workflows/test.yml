@@ -15,6 +15,8 @@ jobs:
     steps:
     - name: Cloning required repositories
       run: |
+        apt-get update
+        apt-get install git -y
         git clone https://github.com/NethermindEth/eip2537rustwrapper.git
     - name: Building Rust libs for Windows
       if: matrix.os == 'windows-latest'
@@ -22,8 +24,7 @@ jobs:
         ls
         pwd
         cd eip2537rustwrapper/builder
-        ./build-eip196.sh
-        ./build-eip2537.sh
+        ./build.sh
       shell: bash
     - uses: actions/upload-artifact@v2
       name: Uploading Windows artifact
@@ -31,18 +32,15 @@ jobs:
       with:
         name: windows_artifact
         path: |
-          eip2537rustwrapper/libs/eth_196.dll
           eip2537rustwrapper/libs/eth_2537.dll
     - name: Building Rust libs for Linux
       if: matrix.os == 'ubuntu-latest'
       run: |
         cd eip2537rustwrapper/builder/
-        ./build-eip196.sh
-        ./build-eip2537.sh
+        ./build.sh
     - name: Stripping Linux file
       if: matrix.os == 'ubuntu-latest'
       run: |
-        strip /home/runner/work/nethermind/nethermind/eip2537rustwrapper/libs/libeth_196.so
         strip /home/runner/work/nethermind/nethermind/eip2537rustwrapper/libs/libeth_2537.so
     - uses: actions/upload-artifact@v2
       name: Uploading Linux artifact
@@ -50,19 +48,16 @@ jobs:
       with:
         name: linux_artifact
         path: |
-          eip2537rustwrapper/libs/libeth_196.so
           eip2537rustwrapper/libs/libeth_2537.so
     - name: Building Rust libs for OSX
       if: matrix.os == 'macOS-latest'
       run: |
         cd eip2537rustwrapper/builder
-        ./build-eip196.sh
-        ./build-eip2537.sh
+        ./build.sh
     - uses: actions/upload-artifact@v2
       name: Uploading Darwin artifact
       if: matrix.os == 'macOS-latest'
       with:
         name: darwin_artifact
         path: |
-          eip2537rustwrapper/libs/libeth_196.dylib
           eip2537rustwrapper/libs/libeth_2537.dylib
