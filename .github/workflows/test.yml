@@ -1,5 +1,8 @@
-name: Fast Sync Auto Update
+name: EIP2537 Rust libs Build
 
+# on:
+#   repository_dispatch:
+#     types: rust_build
 on: push
 
 jobs:
