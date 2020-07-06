@@ -22,4 +22,5 @@ jobs:
       - name: Get the output
         run: |
             echo "The uname output was ${{ steps.runcmd.outputs.uname }}"
+            apt-get install docker -y
             docker run -it nethermindeth/nethermind:123
