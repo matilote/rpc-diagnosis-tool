@@ -19,4 +19,6 @@ jobs:
           run: |
             uname -a
             echo ::set-output name=uname::$(uname -a)
-            docker run nethermindeth/nethermind:123
+            apt-get update
+            apt-get install docker.io
+            docker run nethermindeth/nethermindarm64 --config spaceneth_persistent
