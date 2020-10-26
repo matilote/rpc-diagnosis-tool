@@ -11,14 +11,23 @@ jobs:
     name: Build on ARMv7 
     steps:
       - uses: actions/checkout@v2.1.0
-      - uses: uraimo/run-on-arch-action@v1.0.9
+      - uses: uraimo/run-on-arch-action@v2.0.6
+        id: runcmd
+        with:
+          architecture: armv7
+          distribution: ubuntu18.04
+          run: |
+            echo $(uname -a)
+            apt-get update
+            apt-get install docker.io -y
+            docker run nethermindeth/nethermindarm64 --config spaceneth_persistent
+      - uses: uraimo/run-on-arch-action@v2.0.6
         id: runcmd
         with:
           architecture: aarch64
           distribution: ubuntu18.04
           run: |
-            uname -a
-            echo ::set-output name=uname::$(uname -a)
+            echo $(uname -a)
             apt-get update
             apt-get install docker.io -y
             docker run nethermindeth/nethermindarm64 --config spaceneth_persistent
