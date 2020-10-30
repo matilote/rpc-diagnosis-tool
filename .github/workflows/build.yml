@@ -48,10 +48,13 @@ jobs:
       if: matrix.os == 'windows-latest'
       with:
         update: true
-        install: autoconf libtool make automake gcc mingw-w64-x86_64-gcc base-devel choco
+        install: autoconf libtool make automake gcc mingw-w64-x86_64-gcc
     - run: |
         choco install hg
         hg clone https://gmplib.org/repo/gmp-6.2/ gmp
+      shell: bash
+      if: matrix.os == 'windows-latest'
+    - run: |
         cd gmp/
         ./.bootstrap
         ./configure --host=x86_64-w64-mingw32 --disable-static --enable-shared
