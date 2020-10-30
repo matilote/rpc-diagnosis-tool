@@ -50,7 +50,6 @@ jobs:
         update: true
         install: autoconf libtool make automake gcc mingw-w64-x86_64-gcc base-devel
     - run: |
-        choco install hg
         hg clone https://gmplib.org/repo/gmp-6.2/ gmp
         cd gmp/
         ./.bootstrap
@@ -60,7 +59,7 @@ jobs:
         strip .libs/libgmp.dll
       if: matrix.os == 'windows-latest'
       name: Building gmp for Windows
-      shell: bash
+      shell: msys2 {0}
     - uses: actions/upload-artifact@v1
       name: Uploading Windows artifact
       if: matrix.os == 'windows-latest'
