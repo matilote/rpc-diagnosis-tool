@@ -49,13 +49,13 @@ jobs:
         path: gmp/.libs/libgmp.dylib
     - uses: numworks/setup-msys2@v1
       with:
-        path-type: inherit
+        update: true
       if: matrix.os == 'windows-latest'
       name: Setting up msys2 for Windows
     - name: Installing dependencies for gmp build
       if: matrix.os == 'windows-latest'
       run: |
-        msys2do pacman --noconfirm -S autoconf libtool make automake gcc mingw-w64-x86_64-gcc
+        msys2do pacman --noconfirm -S autoconf libtool make automake gcc
     - run: |
         cat <<EOT >> run.sh
         mv secp256k1 64bit
