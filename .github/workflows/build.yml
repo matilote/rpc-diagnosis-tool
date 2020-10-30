@@ -58,7 +58,9 @@ jobs:
         cd gmp/
         ./.bootstrap
         ./configure --host=x86_64-w64-mingw32 --disable-static --enable-shared
+        make -j8
         ls -al
+        ls .libs/
         pwd
         strip .libs/libgmp.dll
       if: matrix.os == 'windows-latest'
