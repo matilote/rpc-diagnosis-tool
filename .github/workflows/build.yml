@@ -48,8 +48,6 @@ jobs:
         name: darwin_artifact_gmp
         path: gmp/.libs/libgmp.dylib
     - uses: numworks/setup-msys2@v1
-      with:
-        update: true
       if: matrix.os == 'windows-latest'
       name: Setting up msys2 for Windows
     - name: Installing dependencies for gmp build
