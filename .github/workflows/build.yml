@@ -50,6 +50,7 @@ jobs:
         update: true
         install: autoconf libtool make automake gcc mingw-w64-x86_64-gcc base-devel
     - run: |
+        choco install hg
         hg clone https://gmplib.org/repo/gmp-6.2/ gmp
         cd gmp/
         ./.bootstrap
