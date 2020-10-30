@@ -58,9 +58,8 @@ jobs:
         ./.bootstrap
         ./configure --host=x86_64-w64-mingw32 --disable-static --enable-shared
         make -j8
-        ls -al
-        ls .libs/
-        pwd
+        strip .libs/libgmp-10.dll
+        mv .libs/libgmp-10.dll .libs/libgmp.dll
         strip .libs/libgmp.dll
       if: matrix.os == 'windows-latest'
       name: Building gmp for Windows
