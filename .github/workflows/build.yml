@@ -9,6 +9,9 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest, macOS-latest, ubuntu-latest]
+    defaults:
+      run:
+        shell: msys2 {0}
     steps:
     - name: Cloning GMP repository
       run: |
@@ -47,11 +50,11 @@ jobs:
       with:
         name: darwin_artifact_gmp
         path: gmp/.libs/libgmp.dylib
-    - name: Installing dependencies for gmp build
+    - uses: msys2/setup-msys2@v2
       if: matrix.os == 'windows-latest'
-      run: |
-        choco install msys2
-        pacman --noconfirm -S autoconf libtool make automake gcc mingw-w64-x86_64-gcc
+      with:
+        update: true
+        install: autoconf libtool make automake gcc mingw-w64-x86_64-gcc
     - run: |
         choco install hg
         hg clone https://gmplib.org/repo/gmp-6.2/ gmp
@@ -68,5 +71,5 @@ jobs:
       name: Uploading Windows artifact
       if: matrix.os == 'windows-latest'
       with:
-        name: windows_artifact_secp256k1
+        name: windows_artifact_gmp
         path: gmp/.libs/gmp.dll
