@@ -1,9 +1,34 @@
-const { decToHex } = require('../utils/dec-to-hex')
-const { saveToFile } = require('../utils/file-helper')
+const fs = require('fs');
+const readline = require('readline');
+const axios = require('axios');
 
+const readInterface = readline.createInterface({
+    input: fs.createReadStream('./rpc.0.txt'),
+    output: process.stdout,
+    terminal: false
+});
 
-for(let b = process.argv[2]; b < process.argv[3]; b++) {
-    const block = decToHex(b)
-    const request = `{"method":"trace_replayBlockTransactions","params":["${block}",["trace"]],"id":1,"jsonrpc":"2.0"}`
-    saveToFile('trace','requests', request)
+const start = async () =>{
+    for await (const line of readInterface) {
+        try {
+            const response = await axios.post('https://makoto:ahpheithu1ooB1oogu4iuNg8phie6iek6Og7chie@mainnet-supernode.nethermind.io', line, 
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+              },
+            })
+
+            console.log("Request: " + line)
+            console.log("Response: " + response.data.result)
+            console.log("--------------------------------------")
+
+          } catch(error) {
+            console.error(error)
+          }
+    }
 }
+
+start()
+
+

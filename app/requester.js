@@ -8,8 +8,8 @@ const program = require('commander');
 
 // Clients JSON RPC endpoints
 const clients = {
-  nethermind: "http://localhost:8545/",
-  parity: "http://localhost:8555/"
+  nethermind: "http://134.209.177.40:8545/",
+  parity: "http://134.209.177.40:8555/"
 }
 
 // Array for JSON RPC requests storage
@@ -56,7 +56,7 @@ const removeNotWantedMethods = (methods) => {
 const array = removeNotWantedMethods(methods)
 
 // Loops through an array of requests
-// Sends them concurrently to clients
+// Sends them to clients concurrently
 // Fetch responses and save them to dedicated files in responses folder
 array.forEach((request, index) => {
   (async () => {
@@ -83,7 +83,6 @@ array.forEach((request, index) => {
     body: request }).then((response) => response.json())
     ])
     .then(response => {
-      console.log(response)
       if (!_.isEqual(response[0], response[1])) {
         const nethermindResponse = JSON.stringify(response[0])
         const parityResponse = JSON.stringify(response[1])
