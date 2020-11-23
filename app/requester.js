@@ -28,7 +28,7 @@ program.parse(process.argv);
 if (program.methods !== undefined) console.log(program.methods);
 
 // Reads JSON RPC file containing requests which are to be sent to clients
-const textFile = fs.readFileSync("./trace-requests.txt").toString('utf-8').split("\n");
+const textFile = fs.readFileSync("./rpc.0.txt").toString('utf-8').split("\n");
 
 // Removes last line of the file if empty
 if (!textFile[textFile.length -1]) {
