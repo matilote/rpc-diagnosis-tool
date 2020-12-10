@@ -1,0 +1,22 @@
+name: Files capitalization check
+
+on: push
+
+jobs:
+  capitalization-check:
+    name: Capitalization check of .js and .sol files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.3.3
+      - name: Setup Node.js
+        uses: actions/setup-node@v1.4.4
+        with:
+          node-version: "13"
+      - run: npm install
+      - name: Scan .js and .sol files
+        run: |
+          SOL_FILES=$(find . -type d \( -name node_modules -o -path name \) -prune -false -o -name '*.sol')
+          JS_FILES=$(find . -type d \( -name node_modules -o -path name \) -prune -false -o -name '*.js')
+          cat $SOL_FILES $JS_FILES | node capitalizationChecker.js
+      - name: Check
+        run: exit 1
