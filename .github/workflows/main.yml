@@ -17,4 +17,5 @@ jobs:
         run: |
           SOL_FILES=$(find . -type d \( -name node_modules -o -path name \) -prune -false -o -name '*.sol')
           JS_FILES=$(find . -type d \( -name node_modules -o -path name \) -prune -false -o -name '*.js')
-          if [ `cat $SOL_FILES $JS_FILES | node capitalizationChecker.js | head -c1 | wc -c` -gt 0 ]; then echo '##[error] Capitalization errors have been found - check the scan output table' && exit 1; fi
+          cat $SOL_FILES $JS_FILES | node capitalizationChecker.js
+          if [ `cat $SOL_FILES $JS_FILES | node capitalizationChecker.js | head -c1 | wc -c` -gt 0 ]; then echo '##[error]Capitalization errors have been found - check the scan output table' && exit 1; fi
