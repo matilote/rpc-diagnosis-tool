@@ -18,3 +18,4 @@ jobs:
           SOL_FILES=$(find . -type d \( -name node_modules -o -path name \) -prune -false -o -name '*.sol')
           JS_FILES=$(find . -type d \( -name node_modules -o -path name \) -prune -false -o -name '*.js')
           cat $SOL_FILES $JS_FILES | node capitalizationChecker.js
+          echo '##[error] 3:1 error "test is not defined" path:test/sum.spec.js name:ReferenceError'
