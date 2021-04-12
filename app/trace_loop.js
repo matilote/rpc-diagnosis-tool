@@ -11,7 +11,7 @@ const readInterface = readline.createInterface({
 const start = async () =>{
     for await (const line of readInterface) {
         try {
-            const response = await axios.post('https://makoto:ahpheithu1ooB1oogu4iuNg8phie6iek6Og7chie@mainnet-supernode.nethermind.io', line, 
+            const response = await axios.post('http://localhost:8545', line, 
             {
               headers: {
                 'Content-Type': 'application/json',
