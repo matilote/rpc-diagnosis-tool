@@ -16,7 +16,7 @@
     "http-proxy-middleware": "^0.20.0",
     "https": "^1.0.0",
     "inquirer-search-checkbox": "^1.0.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "log-timestamp": "^0.3.0",
     "neek": "^1.1.2",
     "node-fetch": "^2.6.1",
